@@ -90,6 +90,28 @@ export const partners = [
   "Create Campaign",
 ];
 
+// Placeholder member stories for the prototype.
+export const stories = [
+  {
+    quote:
+      "I set one goal — get my license back. EPE connected me to a ride program and a coach. Six months later I'm driving to a job I actually like.",
+    name: "Marcus T.",
+    detail: "Progress Member · North End",
+  },
+  {
+    quote:
+      "The card made it feel real. Like someone in Wichita was actually rooting for me to make it.",
+    name: "Dana R.",
+    detail: "Gold Member · Planeview",
+  },
+  {
+    quote:
+      "I started to get help. Now I mentor two new members. That's the part nobody tells you about — you get to give back.",
+    name: "Olivia M.",
+    detail: "Gold Member · Delano",
+  },
+];
+
 export const benefits = [
   {
     title: "Set & track personal goals",
