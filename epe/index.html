@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wichita EPE Membership — Every Person Empowered</title>
+<meta name="description" content="A free, community-powered membership that helps Wichita residents take the next step toward stability, progress, and contribution."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   Wichita EPE Membership — static prototype
+   Palette: deep navy, warm gold, off-white, subtle green (sage)
+   Edit the variables below to re-theme the whole page.
+   ============================================================ */
+:root{
+  --navy:#0e2745; --navy-700:#16365e; --navy-600:#1f4673; --navy-300:#6c84a3;
+  --gold:#d8a23a; --gold-light:#ecc06a; --gold-soft:#f6e8c9;
+  --cream:#fbf7ef; --cream-200:#f3ecdd;
+  --sage:#4f8a63; --sage-light:#e3efe6;
+  --coral:#c8553d;
+  --ink:#1c2330; --muted:#5e6b7e;
+  --border:rgba(14,39,69,0.10); --white:#fff;
+  --display:'Fraunces',Georgia,serif; --sans:'Outfit',ui-sans-serif,system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.25rem;}
+@media(min-width:640px){.wrap{padding:0 2rem;}}
+.display{font-family:var(--display);}
+.bg-dots{background-image:radial-gradient(rgba(14,39,69,0.06) 1px,transparent 1px);background-size:22px 22px;}
+section{scroll-margin-top:80px;}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:background .2s,color .2s,border-color .2s,transform .15s;font-family:var(--sans);}
+.btn-gold{background:var(--gold);color:var(--navy);} .btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:var(--cream);} .btn-navy:hover{background:var(--navy-700);}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--border);} .btn-outline:hover{border-color:var(--navy);}
+.btn-outline-light{background:transparent;color:var(--cream);border:1.5px solid rgba(251,247,239,.3);} .btn-outline-light:hover{border-color:rgba(251,247,239,.7);}
+.btn-sm{padding:10px 20px;}
+.btn-full{width:100%;}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(251,247,239,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:16px;}
+.brand-name{font-family:var(--display);font-weight:600;font-size:18px;color:var(--navy);}
+.nav-links{display:none;align-items:center;gap:28px;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .2s;}
+.nav-links a:hover{color:var(--navy);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-cta{display:none;}
+.burger{width:40px;height:40px;border-radius:10px;border:none;background:transparent;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.mobile-menu{display:none;border-top:1px solid var(--border);background:var(--cream);padding:16px 1.25rem;}
+.mobile-menu.open{display:block;}
+.mobile-menu a{display:block;padding:10px 12px;border-radius:10px;font-size:14px;font-weight:500;color:var(--navy);}
+.mobile-menu a:hover{background:var(--cream-200);}
+@media(min-width:768px){.nav-links{display:flex;}.nav-cta{display:inline-flex;}.burger{display:none;}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--cream);}
+.hero .grid{display:grid;gap:48px;align-items:center;padding:64px 0;}
+@media(min-width:1024px){.hero .grid{grid-template-columns:1fr 1fr;padding:96px 0;}}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--sage-light);color:var(--sage);font-size:12px;font-weight:600;padding:6px 16px;border-radius:999px;}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.hero h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,6vw,64px);line-height:1.05;letter-spacing:-.02em;color:var(--navy);margin-top:24px;}
+.hero .sub{font-size:18px;color:var(--muted);max-width:560px;margin-top:20px;line-height:1.6;}
+.hero .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;}
+.hero .quote{margin-top:32px;max-width:460px;font-size:14px;font-style:italic;color:var(--navy-300);}
+.card-stage{display:flex;justify-content:center;}
+@media(min-width:1024px){.card-stage{justify-content:flex-end;}}
+.card-wrap{position:relative;}
+
+/* membership card */
+.epe-card{position:relative;overflow:hidden;width:100%;max-width:420px;aspect-ratio:1.6/1;border-radius:18px;background:var(--navy);color:var(--cream);padding:24px;box-shadow:0 25px 50px -12px rgba(14,39,69,.45);transform:rotate(-3deg);}
+.epe-card .glow1{position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(216,162,58,.3);filter:blur(40px);}
+.epe-card .glow2{position:absolute;bottom:-48px;left:-32px;width:160px;height:160px;border-radius:50%;background:rgba(79,138,99,.2);filter:blur(40px);}
+.epe-card .inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:space-between;}
+.epe-card .eyebrow{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-light);}
+.epe-card .title{font-family:var(--display);font-size:22px;font-weight:600;margin-top:4px;}
+.epe-card .chip{width:44px;height:32px;border-radius:6px;background:linear-gradient(135deg,var(--gold-light),var(--gold));}
+.epe-card .label{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--navy-300);}
+.epe-card .name{font-family:var(--display);font-size:18px;font-weight:500;letter-spacing:.02em;}
+.epe-card .lvl{font-size:13px;font-weight:500;color:var(--gold-light);}
+.epe-card .id{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.15em;color:rgba(251,247,239,.7);}
+.card-tag{position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);background:rgba(14,39,69,.9);color:var(--cream);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;padding:4px 12px;border-radius:999px;white-space:nowrap;}
+
+/* generic section heading */
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--sage);margin-bottom:12px;}
+.eyebrow.light{color:var(--gold-light);}
+h2.sec{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,38px);line-height:1.15;color:var(--navy);}
+h2.sec.light{color:var(--cream);}
+.intro{margin-top:16px;font-size:18px;color:var(--muted);line-height:1.6;}
+.intro.light{color:rgba(251,247,239,.8);}
+.center{text-align:center;margin-left:auto;margin-right:auto;max-width:640px;}
+.pad{padding:80px 0;}
+@media(min-width:640px){.pad{padding:96px 0;}}
+
+/* what is epe */
+.split{display:grid;gap:48px;align-items:center;}
+@media(min-width:1024px){.split{grid-template-columns:1fr 1fr;}}
+.points{display:grid;gap:12px;}
+@media(min-width:640px){.points{grid-template-columns:1fr 1fr;}}
+.point{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.point .ic{flex:none;width:28px;height:28px;border-radius:50%;background:var(--sage-light);color:var(--sage);display:flex;align-items:center;justify-content:center;}
+.point span.t{font-size:14px;font-weight:500;color:var(--navy);}
+
+/* steps */
+.cards3{display:grid;gap:24px;margin-top:56px;}
+@media(min-width:768px){.cards3{grid-template-columns:repeat(3,1fr);}}
+.step{position:relative;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.step .num{position:absolute;right:24px;top:20px;font-family:var(--display);font-weight:600;font-size:36px;color:var(--cream-200);}
+.step .ic{width:48px;height:48px;border-radius:12px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;}
+.step h3{font-family:var(--display);font-weight:600;font-size:20px;color:var(--navy);margin-top:20px;}
+.step p{font-size:14px;color:var(--muted);margin-top:8px;}
+
+/* thrive lights */
+.thrive-grid{display:grid;gap:32px;align-items:center;margin-top:48px;}
+@media(min-width:1024px){.thrive-grid{grid-template-columns:1.4fr 1fr;}}
+.lights{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(min-width:640px){.lights{grid-template-columns:repeat(4,1fr);}}
+.light{display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-align:left;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;box-shadow:0 0 0 2px transparent;transition:transform .15s,box-shadow .2s;font-family:var(--sans);}
+.light:hover{transform:translateY(-2px);}
+.light .d{width:16px;height:16px;border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.15);}
+.light .dn{font-size:14px;font-weight:600;color:var(--navy);line-height:1.2;}
+.light .st{font-size:12px;font-weight:500;}
+.light[data-state="0"]{box-shadow:0 0 0 2px rgba(200,85,61,.3);} .light[data-state="0"] .d{background:var(--coral);} .light[data-state="0"] .st{color:var(--coral);}
+.light[data-state="1"]{box-shadow:0 0 0 2px rgba(216,162,58,.4);} .light[data-state="1"] .d{background:var(--gold);} .light[data-state="1"] .st{color:var(--gold);}
+.light[data-state="2"]{box-shadow:0 0 0 2px rgba(79,138,99,.4);} .light[data-state="2"] .d{background:var(--sage);} .light[data-state="2"] .st{color:var(--sage);}
+.meter{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.meter .cap{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--navy-300);}
+.meter .pct{font-family:var(--display);font-weight:600;font-size:48px;color:var(--navy);margin-top:4px;}
+.bar{height:12px;border-radius:999px;background:var(--cream-200);overflow:hidden;margin-top:16px;}
+.bar>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--sage));transition:width .5s;}
+.legend{margin-top:24px;display:grid;gap:8px;}
+.legend li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);list-style:none;}
+.legend .d{width:12px;height:12px;border-radius:50%;}
+
+/* membership levels */
+.tiers{display:grid;gap:24px;align-items:start;margin-top:56px;}
+@media(min-width:1024px){.tiers{grid-template-columns:repeat(3,1fr);}}
+.tier{position:relative;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.tier.featured{border-color:rgba(79,138,99,.4);box-shadow:0 0 0 2px rgba(79,138,99,.3);}
+@media(min-width:1024px){.tier.featured{transform:translateY(-12px);}}
+.tier .topbar{height:6px;}
+.tier-navy .topbar{background:var(--navy);} .tier-sage .topbar{background:var(--sage);} .tier-gold .topbar{background:var(--gold);}
+.tier .pill{position:absolute;right:16px;top:16px;background:var(--sage);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:4px 12px;border-radius:999px;}
+.tier .body{padding:28px;display:flex;flex-direction:column;flex:1;}
+.tier h3{font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy);}
+.tier .tagline{font-size:14px;color:var(--muted);margin-top:4px;}
+.tier .grouplabel{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--navy-300);margin-top:24px;}
+.tier ul{list-style:none;margin-top:8px;display:grid;gap:8px;}
+.tier .req li{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--muted);}
+.tier .req li .b{margin-top:7px;width:6px;height:6px;border-radius:50%;background:rgba(14,39,69,.3);flex:none;}
+.tier .ben li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--navy);}
+.tier-navy .ben .chk{color:var(--navy);} .tier-sage .ben .chk{color:var(--sage);} .tier-gold .ben .chk{color:var(--gold);}
+.tier .chk{flex:none;margin-top:1px;}
+.tier .choose{margin-top:28px;border-radius:999px;padding:12px 20px;font-size:14px;font-weight:600;border:none;cursor:pointer;width:100%;font-family:var(--sans);}
+.tier-navy .choose{background:rgba(14,39,69,.1);color:var(--navy);}
+.tier-sage .choose{background:var(--sage-light);color:var(--sage);}
+.tier-gold .choose{background:var(--gold-soft);color:var(--navy);}
+.tier .choose:hover{opacity:.9;}
+
+/* partners (navy band) */
+.band-navy{background:var(--navy);}
+.cat-grid{display:grid;gap:16px;margin-top:48px;}
+@media(min-width:640px){.cat-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.cat-grid{grid-template-columns:repeat(3,1fr);}}
+.cat{display:flex;align-items:center;gap:16px;border:1px solid rgba(251,247,239,.1);background:rgba(255,255,255,.05);border-radius:12px;padding:18px;transition:background .2s;}
+.cat:hover{background:rgba(255,255,255,.1);}
+.cat .ic{flex:none;width:44px;height:44px;border-radius:10px;background:rgba(216,162,58,.15);color:var(--gold-light);display:flex;align-items:center;justify-content:center;}
+.cat span.t{font-weight:500;color:var(--cream);}
+.partner-box{margin-top:56px;border:1px solid rgba(251,247,239,.1);background:rgba(255,255,255,.05);border-radius:16px;padding:28px;}
+.partner-box .cap{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-light);}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;}
+.chip-p{background:rgba(251,247,239,.1);color:var(--cream);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;}
+.partner-box .note{margin-top:16px;font-size:12px;color:var(--navy-300);}
+
+/* benefits */
+.benefits{display:grid;gap:20px;margin-top:56px;}
+@media(min-width:640px){.benefits{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.benefits{grid-template-columns:repeat(3,1fr);}}
+.benefit{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .2s;}
+.benefit:hover{transform:translateY(-4px);}
+.benefit .ic{width:48px;height:48px;border-radius:12px;background:var(--gold-soft);color:var(--navy);display:flex;align-items:center;justify-content:center;}
+.benefit h3{font-family:var(--display);font-weight:600;font-size:18px;color:var(--navy);margin-top:20px;}
+.benefit p{font-size:14px;color:var(--muted);margin-top:8px;}
+
+/* stories */
+.stories{display:grid;gap:24px;margin-top:56px;}
+@media(min-width:768px){.stories{grid-template-columns:repeat(3,1fr);}}
+.story{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.story .q{font-family:var(--display);font-size:48px;line-height:1;color:var(--gold);}
+.story blockquote{flex:1;margin-top:8px;font-size:14px;color:var(--navy);line-height:1.6;}
+.story figcaption{margin-top:20px;border-top:1px solid var(--border);padding-top:16px;}
+.story .nm{font-size:14px;font-weight:600;color:var(--navy);}
+.story .dt{font-size:12px;color:var(--muted);}
+
+/* why (sage band) */
+.band-sage{background:var(--sage-light);}
+.why{max-width:760px;margin:0 auto;text-align:center;}
+.why .lead{font-family:var(--display);font-weight:500;font-size:clamp(22px,3vw,30px);line-height:1.3;color:var(--navy);}
+.why .body{margin-top:24px;font-size:18px;color:rgba(14,39,69,.7);line-height:1.6;}
+
+/* cta */
+.cta-grid{display:grid;gap:48px;align-items:center;}
+@media(min-width:1024px){.cta-grid{grid-template-columns:1fr 1fr;}}
+.cta h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,38px);line-height:1.15;color:var(--cream);}
+.cta p{margin-top:16px;max-width:520px;font-size:18px;color:rgba(251,247,239,.8);line-height:1.6;}
+.cta .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;}
+.form-box{border:1px solid rgba(251,247,239,.1);background:rgba(255,255,255,.05);border-radius:16px;padding:28px;}
+.form-box .ft{font-family:var(--display);font-weight:600;font-size:20px;color:var(--cream);}
+.form-box .fn{margin-top:4px;font-size:13px;color:var(--navy-300);}
+.form-box label{display:block;margin-top:16px;}
+.form-box label .lb{display:block;margin-bottom:6px;font-size:14px;font-weight:500;color:rgba(251,247,239,.9);}
+.form-box input{width:100%;border:1px solid rgba(251,247,239,.15);background:rgba(22,54,94,.6);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--cream);font-family:var(--sans);}
+.form-box input::placeholder{color:var(--navy-300);}
+.form-box input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);}
+.form-box .submit{margin-top:20px;}
+.form-box .fine{margin-top:12px;text-align:center;font-size:12px;color:var(--navy-300);}
+
+/* footer */
+footer{border-top:1px solid var(--border);background:var(--cream);}
+.foot{display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center;padding:40px 0;}
+@media(min-width:640px){.foot{flex-direction:row;justify-content:space-between;text-align:left;}}
+.foot .l{display:flex;align-items:center;gap:10px;}
+.foot .mk{width:32px;height:32px;border-radius:8px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:14px;}
+.foot .t{font-size:14px;color:var(--muted);}
+.foot .r{font-size:12px;color:var(--navy-300);}
+svg.ic{width:24px;height:24px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="brand-mark">E</span><span class="brand-name">Wichita EPE</span></a>
+    <nav class="nav-links">
+      <a href="#what">What is EPE</a>
+      <a href="#how">How It Works</a>
+      <a href="#thrive">Thrive Lights</a>
+      <a href="#levels">Levels</a>
+      <a href="#partners">Partners</a>
+      <a href="#benefits">Benefits</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#join" class="btn btn-navy btn-sm nav-cta">Become a Member</a>
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#what">What is EPE</a>
+    <a href="#how">How It Works</a>
+    <a href="#thrive">Thrive Lights</a>
+    <a href="#levels">Levels</a>
+    <a href="#partners">Partners</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#join" class="btn btn-navy btn-full" style="margin-top:8px;color:var(--cream);">Become a Member</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg-dots" style="position:absolute;inset:0;opacity:.7;"></div>
+  <div class="wrap grid" style="position:relative;">
+    <div>
+      <span class="badge"><span class="dot"></span>Every Person Empowered · Wichita</span>
+      <h1>Wichita EPE Membership</h1>
+      <p class="sub">A simple way for people, partners, and neighbors to take the next step toward stability, progress, and contribution.</p>
+      <div class="cta-row">
+        <a href="#join" class="btn btn-gold">Become a Member</a>
+        <a href="#benefits" class="btn btn-outline">Explore Member Benefits</a>
+      </div>
+      <p class="quote">&ldquo;Every person empowered to transform their life — and help others do the same.&rdquo;</p>
+    </div>
+    <div class="card-stage">
+      <div class="card-wrap">
+        <div class="epe-card">
+          <div class="glow1"></div><div class="glow2"></div>
+          <div class="inner">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div><p class="eyebrow">Every Person Empowered</p><p class="title">EPE Membership</p></div>
+              <div class="chip"></div>
+            </div>
+            <div>
+              <p class="label">Member</p>
+              <p class="name">Your Name Here</p>
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px;">
+                <div><p class="label">Level</p><p class="lvl">Starter Member</p></div>
+                <p class="id">WICHITA · 2026</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="card-tag">Membership Card · placeholder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS EPE -->
+<section id="what" class="wrap pad">
+  <div class="split">
+    <div style="max-width:560px;">
+      <p class="eyebrow">What is EPE Membership?</p>
+      <h2 class="sec">A free pathway to begin your empowerment journey.</h2>
+      <p class="intro">EPE Membership is a free pathway for anyone in Wichita to begin an empowerment journey. Members can set goals, track progress, access partner resources, and unlock deeper support as they take action.</p>
+    </div>
+    <div class="points" id="whatPoints"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="band-sage bg-dots" style="background-color:var(--cream-200);">
+  <div class="wrap pad">
+    <div class="center"><p class="eyebrow">How It Works</p><h2 class="sec">Three steps to get started.</h2></div>
+    <div class="cards3" id="steps"></div>
+  </div>
+</section>
+
+<!-- THRIVE LIGHTS -->
+<section id="thrive" class="bg-dots" style="background-color:var(--cream-200);">
+  <div class="wrap pad">
+    <div style="max-width:640px;">
+      <p class="eyebrow">Thrive Lights</p>
+      <h2 class="sec">See your whole life at a glance.</h2>
+      <p class="intro">Thrive Lights is a simple self-check across the areas that matter. Tap a light to mark where you are today — then set goals to move it forward. (Try it.)</p>
+    </div>
+    <div class="thrive-grid">
+      <div class="lights" id="lights"></div>
+      <div class="meter">
+        <p class="cap">Overall progress</p>
+        <p class="pct" id="pct">0%</p>
+        <div class="bar"><span id="barFill" style="width:0%"></span></div>
+        <ul class="legend">
+          <li><span class="d" style="background:var(--coral)"></span>Needs support</li>
+          <li><span class="d" style="background:var(--gold)"></span>Working on it</li>
+          <li><span class="d" style="background:var(--sage)"></span>Thriving</li>
+        </ul>
+        <p class="note" style="margin-top:24px;font-size:12px;color:var(--navy-300);">Prototype demo — progress isn't saved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP LEVELS -->
+<section id="levels" class="wrap pad">
+  <div class="center"><p class="eyebrow">Membership Levels</p><h2 class="sec">Start where you are. Grow as you go.</h2><p class="intro">Prototype tiers — every member begins as a Starter and unlocks more as they set goals and take action.</p></div>
+  <div class="tiers" id="tiers"></div>
+</section>
+
+<!-- PARTNER NETWORK -->
+<section id="partners" class="band-navy">
+  <div class="wrap pad">
+    <div style="max-width:640px;">
+      <p class="eyebrow light">Partner Network</p>
+      <h2 class="sec light">One front door to a whole ecosystem of support.</h2>
+      <p class="intro light">EPE connects members to trusted Wichita organizations across the areas that matter most.</p>
+    </div>
+    <div class="cat-grid" id="cats"></div>
+    <div class="partner-box">
+      <p class="cap">Example Wichita partners</p>
+      <div class="chips" id="partnerChips"></div>
+      <p class="note">Placeholder partners shown for the prototype.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER BENEFITS -->
+<section id="benefits" class="wrap pad">
+  <div class="center"><p class="eyebrow">Member Benefits</p><h2 class="sec">What you can do as a member.</h2></div>
+  <div class="benefits" id="benefits"></div>
+</section>
+
+<!-- MEMBER STORIES -->
+<section class="wrap pad">
+  <div class="center"><p class="eyebrow">Member Stories</p><h2 class="sec">Real next steps, taken one at a time.</h2><p class="intro">Illustrative stories for the prototype — the kind of progress EPE is built to support.</p></div>
+  <div class="stories" id="stories"></div>
+</section>
+
+<!-- WHY THIS MATTERS -->
+<section class="band-sage">
+  <div class="wrap pad why">
+    <p class="eyebrow" style="text-align:center;">Why This Matters</p>
+    <p class="lead">Wichita has no shortage of people working hard to change their lives. The challenge is making the next step clear, visible, and connected.</p>
+    <p class="body">EPE Membership creates a simple front door into a larger ecosystem of support, progress, and contribution.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="join" class="band-navy">
+  <div class="wrap pad">
+    <div class="cta-grid">
+      <div class="cta">
+        <h2>Start your empowerment journey.</h2>
+        <p>Join free, refer a neighbor, or bring your organization into the network. Every path starts with one step.</p>
+        <div class="row">
+          <a href="#" class="btn btn-gold">Become a Member</a>
+          <a href="#" class="btn btn-outline-light">Refer Someone</a>
+          <a href="#" class="btn btn-outline-light">Partner With Us</a>
+        </div>
+      </div>
+      <div class="form-box">
+        <p class="ft">Get your EPE Membership Card</p>
+        <p class="fn">Prototype form — not yet connected.</p>
+        <form onsubmit="return false;">
+          <label><span class="lb">Full name</span><input type="text" placeholder="Your name"/></label>
+          <label><span class="lb">Email</span><input type="email" placeholder="you@example.com"/></label>
+          <label><span class="lb">ZIP code</span><input type="text" placeholder="67202"/></label>
+          <button type="submit" class="btn btn-gold btn-full submit">Join — it's free</button>
+          <p class="fine">We'll never share your information.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot">
+    <div class="l"><span class="mk">E</span><span class="t">Wichita EPE Membership — Every Person Empowered.</span></div>
+    <p class="r">Prototype · For demonstration only · <span id="year"></span></p>
+  </div>
+</footer>
+
+<script>
+/* ---------- icon set (inline SVG paths) ---------- */
+var ICONS={
+  card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  unlock:'<rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.9-1"/>',
+  briefcase:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>',
+  wallet:'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1"/>',
+  bus:'<rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16"/><path d="M7 17v3M17 17v3"/>',
+  home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  family:'<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20v-1a5 5 0 0 1 10 0v1"/><path d="M14.5 20v-1a4 4 0 0 1 6.5-3.1"/>',
+  heart:'<path d="M12 20s-7-4.6-9.2-8.4A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 9.2 5.6C19 15.4 12 20 12 20z"/>',
+  check:'<path d="M4 12l5 5L20 6"/>'
+};
+function svg(name,cls){return '<svg class="'+(cls||'ic')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[name]||'')+'</svg>';}
+
+/* ---------- data ---------- */
+var WHAT=["Set goals that matter to you","Track your progress over time","Access partner resources","Unlock deeper support as you take action"];
+var STEPS=[
+  {n:"01",t:"Join",b:"Get your EPE Membership Card and start your journey. It's free and open to anyone in Wichita.",i:"card"},
+  {n:"02",t:"Set Goals",b:"Use tools like Thrive Lights to identify what matters most, set goals, and track your progress over time.",i:"target"},
+  {n:"03",t:"Unlock Support",b:"As members work, set goals, and make progress, they may unlock partner benefits like training, savings support, transportation help, or homeownership pathways.",i:"unlock"}
+];
+var DOMAINS=["Housing","Income & Work","Health","Transportation","Family & Relationships","Money & Savings","Education","Community"];
+var STATE_LABELS=["Needs support","Working on it","Thriving"];
+var LEVELS=[
+  {name:"Starter Member",accent:"navy",tagline:"For anyone ready to begin.",req:[],ben:["EPE Membership Card","Access to basic resources","Invitations to community opportunities"],featured:false},
+  {name:"Progress Member",accent:"sage",tagline:"For members setting goals and tracking progress.",req:["Set goals","Track progress","Engage with a partner or support tool"],ben:["Thrive Lights access","Goal support","Partner referrals"],featured:true},
+  {name:"Gold Member",accent:"gold",tagline:"For members actively working, growing, and contributing.",req:["Working or pursuing work","Setting goals","Tracking progress","Referred or verified by a partner organization"],ben:["Premium partner benefits","Training and education pathways","Matching savings opportunities","Transportation support","Homeownership pathways"],featured:false}
+];
+var CATS=[["Workforce & Training","briefcase"],["Financial Coaching","wallet"],["Transportation","bus"],["Housing & Homeownership","home"],["Family Stability","family"],["Community Contribution","heart"]];
+var PARTNERS=["WSU Tech","Thrive Lights","Family Promise","Hope CDC","Hope for the Hood","Empower","Create Campaign"];
+var BENEFITS=[
+  ["Set & track personal goals","Name where you're headed and watch your progress add up, one step at a time.","target"],
+  ["Build financial stability","Connect with coaching and matching savings opportunities that grow your foundation.","wallet"],
+  ["Access training & career pathways","Find education and workforce programs that open doors to better work.","briefcase"],
+  ["Get connected to transportation","Reliable ways to get to work, school, and appointments without the stress.","bus"],
+  ["Explore homeownership pathways","Take real steps toward owning a home and putting down roots in Wichita.","home"],
+  ["Contribute back to community","Once you've grown, help a neighbor take their next step too.","heart"]
+];
+var STORIES=[
+  ["I set one goal — get my license back. EPE connected me to a ride program and a coach. Six months later I'm driving to a job I actually like.","Marcus T.","Progress Member · North End"],
+  ["The card made it feel real. Like someone in Wichita was actually rooting for me to make it.","Dana R.","Gold Member · Planeview"],
+  ["I started to get help. Now I mentor two new members. That's the part nobody tells you about — you get to give back.","Olivia M.","Gold Member · Delano"]
+];
+
+/* ---------- render ---------- */
+function el(html){var d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild;}
+
+document.getElementById('whatPoints').innerHTML=WHAT.map(function(p){
+  return '<div class="point"><span class="ic">'+svg('check','ic')+'</span><span class="t">'+p+'</span></div>';
+}).join('');
+
+document.getElementById('steps').innerHTML=STEPS.map(function(s){
+  return '<div class="step"><span class="num">'+s.n+'</span><span class="ic">'+svg(s.i)+'</span><h3>'+s.t+'</h3><p>'+s.b+'</p></div>';
+}).join('');
+
+document.getElementById('tiers').innerHTML=LEVELS.map(function(l){
+  var req=l.req.length?'<p class="grouplabel">Requirements</p><ul class="req">'+l.req.map(function(r){return '<li><span class="b"></span>'+r+'</li>';}).join('')+'</ul>':'';
+  var ben='<p class="grouplabel">Benefits</p><ul class="ben">'+l.ben.map(function(b){return '<li><span class="chk">'+svg('check','ic')+'</span>'+b+'</li>';}).join('')+'</ul>';
+  var pill=l.featured?'<span class="pill">Most common</span>':'';
+  return '<div class="tier tier-'+l.accent+(l.featured?' featured':'')+'"><div class="topbar"></div>'+pill+'<div class="body"><h3>'+l.name+'</h3><p class="tagline">'+l.tagline+'</p>'+req+ben+'<button class="choose">Choose '+l.name.split(' ')[0]+'</button></div></div>';
+}).join('');
+
+document.getElementById('cats').innerHTML=CATS.map(function(c){
+  return '<div class="cat"><span class="ic">'+svg(c[1])+'</span><span class="t">'+c[0]+'</span></div>';
+}).join('');
+
+document.getElementById('partnerChips').innerHTML=PARTNERS.map(function(p){return '<span class="chip-p">'+p+'</span>';}).join('');
+
+document.getElementById('benefits').innerHTML=BENEFITS.map(function(b){
+  return '<div class="benefit"><span class="ic">'+svg(b[2])+'</span><h3>'+b[0]+'</h3><p>'+b[1]+'</p></div>';
+}).join('');
+
+document.getElementById('stories').innerHTML=STORIES.map(function(s){
+  return '<figure class="story"><span class="q">&ldquo;</span><blockquote>'+s[0]+'</blockquote><figcaption><p class="nm">'+s[1]+'</p><p class="dt">'+s[2]+'</p></figcaption></figure>';
+}).join('');
+
+/* ---------- thrive lights interactivity ---------- */
+var states=DOMAINS.map(function(_,i){return i%3===0?0:(i%3===1?1:2);});
+function renderLights(){
+  document.getElementById('lights').innerHTML=DOMAINS.map(function(d,i){
+    return '<button class="light" data-state="'+states[i]+'" data-i="'+i+'"><span class="d"></span><span class="dn">'+d+'</span><span class="st">'+STATE_LABELS[states[i]]+'</span></button>';
+  }).join('');
+  var score=states.reduce(function(a,s){return a+s;},0);
+  var pct=Math.round((score/(states.length*2))*100);
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('barFill').style.width=pct+'%';
+}
+document.getElementById('lights').addEventListener('click',function(e){
+  var btn=e.target.closest('.light'); if(!btn)return;
+  var i=+btn.getAttribute('data-i'); states[i]=(states[i]+1)%3; renderLights();
+});
+renderLights();
+
+/* ---------- mobile menu ---------- */
+var burger=document.getElementById('burger'),menu=document.getElementById('mobileMenu');
+burger.addEventListener('click',function(){
+  var open=menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded',open);
+  burger.innerHTML=open
+    ?'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    :'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+});
+menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');}});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
