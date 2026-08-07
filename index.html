@@ -63,14 +63,14 @@ nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px 
 .hero-stats{display:flex;justify-content:center;background:var(--white);border-radius:16px;border:1px solid var(--border);max-width:620px;margin:0 auto;overflow:hidden;}
 .hero-stat{flex:1;padding:1.2rem 1.5rem;text-align:center;border-right:1px solid var(--border);min-width:0;}
 .hero-stat:last-child{border-right:none;}
-.hero-stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--teal);line-height:1;margin-bottom:3px;}
-.hero-stat-label{font-size:12px;font-weight:400;color:var(--muted);line-height:1.35;}
+.hero-stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--teal);line-height:1;}
+.hero-stat-label{font-size:12px;font-weight:400;color:var(--muted);line-height:1.35;margin-bottom:4px;}
 @media(max-width:560px){
   .hero-stats{flex-direction:column;max-width:340px;}
   .hero-stat{padding:1rem 1.25rem;border-right:none;border-bottom:1px solid var(--border);display:flex;align-items:baseline;justify-content:center;gap:0.6rem;text-align:left;}
   .hero-stat:last-child{border-bottom:none;}
-  .hero-stat-num{font-size:24px;margin-bottom:0;}
-  .hero-stat-label{font-size:13px;}
+  .hero-stat-num{font-size:24px;}
+  .hero-stat-label{font-size:13px;margin-bottom:0;}
 }
 
 /* SHARED SECTION STYLES */
@@ -221,9 +221,9 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
     <button class="btn-outline" onclick="showPage('models')">View Models</button>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num">$43k</div><div class="hero-stat-label">ADUs starting at</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">$600+</div><div class="hero-stat-label">avg. monthly income</div></div>
-    <div class="hero-stat"><div class="hero-stat-num">2 wins</div><div class="hero-stat-label">you earn, they're housed</div></div>
+    <div class="hero-stat"><div class="hero-stat-label">ADUs starting at</div><div class="hero-stat-num">$43k</div></div>
+    <div class="hero-stat"><div class="hero-stat-label">avg. monthly income</div><div class="hero-stat-num">$600+</div></div>
+    <div class="hero-stat"><div class="hero-stat-label">you earn, they're housed</div><div class="hero-stat-num">2 wins</div></div>
   </div>
 </section>
 
