@@ -163,11 +163,12 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .cta-btns{display:flex;gap:1rem;flex-wrap:wrap;}
 .cta-contact{font-size:14px;color:var(--muted);margin-top:1.5rem;}
 .cta-contact a{color:var(--teal);text-decoration:none;font-weight:500;}
-.qr-block{display:flex;flex-direction:column;align-items:center;gap:12px;}
-.qr-frame{background:var(--white);border-radius:16px;padding:16px;border:1.5px solid var(--border);}
-#qrcode canvas,#qrcode img{display:block;}
-.qr-label{font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-align:center;}
-.qr-url{font-size:12px;color:var(--teal);text-align:center;font-weight:500;}
+.form-block{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:420px;}
+.form-frame{background:var(--white);border-radius:16px;border:1.5px solid var(--border);width:100%;overflow:hidden;}
+.form-frame iframe{display:block;width:100%;height:560px;border:0;}
+.form-label{font-size:12px;color:var(--muted);text-align:center;}
+.form-label a{color:var(--teal);text-decoration:none;font-weight:500;}
+@media(max-width:680px){.cta-inner{grid-template-columns:1fr;}.form-block{max-width:100%;}.form-frame iframe{height:640px;}}
 
 /* FOOTER */
 footer{background:var(--ink);color:rgba(255,255,255,0.4);text-align:center;padding:2rem;font-size:13px;font-weight:300;}
@@ -185,7 +186,7 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
   <div class="nav-links">
     <a href="#" class="nav-link" onclick="showPage('models');return false;">Models</a>
     <a href="#" class="nav-link" onclick="showPage('home');document.getElementById('calculator').scrollIntoView({behavior:'smooth'});return false;">Calculator</a>
-    <a href="https://app.youform.com/forms/qahnwk7k" class="nav-cta">Get Started</a>
+    <a href="https://tally.so/r/WOXbgv" class="nav-cta">Get Started</a>
   </div>
 </nav>
 
@@ -330,15 +331,19 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
       <h2 class="section-title">Ready to put good<br/>in your backyard?</h2>
       <p class="section-desc">Fill out our quick form and we'll reach out to walk you through your options — no pressure, just a conversation about what's possible.</p>
       <div class="cta-btns">
-        <a href="https://app.youform.com/forms/qahnwk7k" class="btn-primary">Get Started</a>
+        <a href="https://tally.so/r/WOXbgv" class="btn-primary">Get Started</a>
         <button class="btn-outline" onclick="showPage('models')">View Models</button>
       </div>
       <p class="cta-contact">Questions? Email <a href="mailto:lhuslig@standtogether.org">lhuslig@standtogether.org</a></p>
     </div>
-    <div class="qr-block">
-      <div class="qr-frame"><div id="qrcode"></div></div>
-      <p class="qr-label">Scan to get started</p>
-      <p class="qr-url">app.youform.com</p>
+    <div class="form-block">
+      <div class="form-frame">
+        <iframe
+          data-tally-src="https://tally.so/embed/WOXbgv?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
+          title="IMBY Wichita interest form"></iframe>
+      </div>
+      <p class="form-label">Or open the form in a new tab &rarr; <a href="https://tally.so/r/WOXbgv" target="_blank" rel="noopener">tally.so/r/WOXbgv</a></p>
     </div>
   </div>
 </section>
@@ -377,7 +382,7 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
           </div>
           <p class="model-detail-desc">The Ember is a full-featured Prime Craftsman studio built to the same code as site-built homes — often exceeding them. Built indoors in a climate-controlled facility, every unit is precision-crafted and delivered ready to live in. At 315 gross sq ft with a full kitchen, living room, and included appliances, it's a complete, private home with everything a renter needs. <a href="https://primecraftsmanhomes.com/product/the-ember/" target="_blank" rel="noopener">View The Ember at Prime Craftsman &rarr;</a></p>
           <div class="model-cta-row">
-            <a href="https://app.youform.com/forms/qahnwk7k" class="btn-primary">Get a Quote</a>
+            <a href="https://tally.so/r/WOXbgv" class="btn-primary">Get a Quote</a>
             <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('calculator').scrollIntoView({behavior:'smooth'}),100);">Run the Numbers</button>
           </div>
         </div>
@@ -403,7 +408,7 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
           <p class="model-detail-desc">The Aspen is a Prime Craftsman one-bedroom modular home — built to the same code as site-built homes, precision-crafted in a climate-controlled facility, and delivered ready to live in. With a private bedroom, full bath, full kitchen, closets, and a covered porch, it gives a Wichita neighbor a real place to call home. <a href="https://primecraftsmanhomes.com/product/the-aspen/" target="_blank" rel="noopener">View The Aspen at Prime Craftsman &rarr;</a></p>
           <div class="model-note">*Gross square footage includes porch.</div>
           <div class="model-cta-row">
-            <a href="https://app.youform.com/forms/qahnwk7k" class="btn-primary">Get a Quote</a>
+            <a href="https://tally.so/r/WOXbgv" class="btn-primary">Get a Quote</a>
             <button class="btn-outline" onclick="showPage('home');setTimeout(()=>document.getElementById('calculator').scrollIntoView({behavior:'smooth'}),100);">Run the Numbers</button>
           </div>
         </div>
@@ -421,13 +426,13 @@ footer a{color:rgba(255,255,255,0.7);text-decoration:none;}
   <p style="margin-top:0.4rem;font-size:12px;"><a href="mailto:lhuslig@standtogether.org">lhuslig@standtogether.org</a></p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script async src="https://tally.so/widgets/embed.js"></script>
 <script>
-new QRCode(document.getElementById("qrcode"),{
-  text:"https://app.youform.com/forms/qahnwk7k",
-  width:148,height:148,
-  colorDark:"#1A7A73",colorLight:"#FFFFFF",
-  correctLevel:QRCode.CorrectLevel.H
+// Fallback: if Tally's embed script fails to load, set the iframe src directly.
+window.addEventListener('load', function(){
+  document.querySelectorAll('iframe[data-tally-src]').forEach(function(f){
+    if(!f.src) f.src = f.getAttribute('data-tally-src');
+  });
 });
 
 function showPage(name) {
