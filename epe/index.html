@@ -2312,7 +2312,7 @@ function loadInsights(){
   ]).then(function(res){
     var box=document.getElementById('insBox'); if(!box)return;
     var mres=res[0],ares=res[1];window._navList=((res[5]&&res[5].data)||[]);
-    if((mres&&mres.error)||(ares&&ares.error)){box.innerHTML='<div class="panel"><p class="sub">Could not load — make sure you are logged in as an admin.</p></div>';return;}
+    if((mres&&mres.error)||(ares&&ares.error)){var _emsg=((mres&&mres.error&&mres.error.message)||(ares&&ares.error&&ares.error.message)||"");box.innerHTML='<div class="panel"><p class="sub">Could not load. '+(/column|does not exist|schema/i.test(_emsg)?'Your database is missing a column — run hub-tables.sql then navigator.sql, then reload. ':(/permission|denied|JWT|auth/i.test(_emsg)?'You are not logged in as an admin (is_staff() is false for this account). ':'Make sure you are logged in as an admin. '))+'<br><span style="color:var(--muted);font-size:12px">'+_insEsc(_emsg)+'</span></p></div>';return;}
     var latest={},baseA={}; ((ares&&ares.data)||[]).forEach(function(a){if(a.kind==='baseline'){if(!baseA[a.member_id])baseA[a.member_id]=a;}else{if(!latest[a.member_id])latest[a.member_id]=a;}});
     var sagg={}; ((res[2]&&res[2].data)||[]).forEach(function(x){if(!x.uid)return;var g=sagg[x.uid]||(sagg[x.uid]={logins:0,seconds:0,last:null});if(x.kind!=='resume')g.logins++;g.seconds+=(x.seconds||0);if(x.last_seen&&(!g.last||x.last_seen>g.last))g.last=x.last_seen;});
     var magg={}; ((res[3]&&res[3].data)||[]).forEach(function(x){(magg[x.member_id]=magg[x.member_id]||{})[x.mkey]=x.status;});
