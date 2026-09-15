@@ -677,6 +677,28 @@ h2.sec.light{color:#fff;}
 .ascale-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;}
 .ascale.ascale-11{display:flex;flex-wrap:wrap;gap:6px;}
 .ascale-11 .aopt{width:38px;height:38px;min-width:38px;padding:0;font-size:14px;font-weight:700;border-radius:9px;border-width:1.5px;}
+.fl-dom{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin:18px 0 2px;}
+.fl-q{padding:11px 0;border-top:1px solid var(--border);}
+.fl-q:first-of-type{border-top:none;}
+.fl-qt{font-weight:600;color:var(--navy);font-size:14px;line-height:1.4;}
+.fl-scale{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+.fl-n{width:38px;height:38px;min-width:38px;border:1.5px solid var(--border);background:#fff;border-radius:9px;font-weight:700;color:var(--navy);cursor:pointer;font-family:var(--sans);font-size:14px;}
+.fl-n:hover{border-color:var(--gold);}
+.fl-n.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+.fl-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:5px;}
+.fl-scores{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.fl-score{background:var(--cream-200);border-radius:12px;padding:16px;text-align:center;}
+.fl-score .v{font-family:var(--display);font-weight:700;font-size:30px;color:var(--navy);line-height:1;}
+.fl-score .l{font-size:12px;color:var(--muted);margin-top:6px;}
+.fl-part{font-size:11px;color:var(--muted);}
+.fl-doms{margin-top:14px;}
+.fl-domrow{display:flex;align-items:center;gap:10px;font-size:13px;margin:7px 0;}
+.fl-domrow .nm{flex:1;color:var(--navy);}
+.fl-bar{width:110px;height:8px;background:var(--cream-200);border-radius:999px;overflow:hidden;flex:none;}
+.fl-bar>span{display:block;height:100%;background:var(--sage);}
+.fl-domrow .sc{width:38px;text-align:right;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;}
+.fl-actions{margin-top:18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+
 .a-input{width:100%;border:1px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-family:var(--sans);color:var(--ink);background:#fff;}
 .a-nav{display:flex;justify-content:space-between;gap:12px;margin-top:32px;}
 .a-nav-r{display:flex;gap:10px;align-items:center;}
@@ -1455,6 +1477,7 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
       <button type="button" class="hub-tab" data-tp="ach"><span class="n">4</span>Achievements</button>
       <button type="button" class="hub-tab" data-tp="rewards"><span class="n">5</span>Rewards</button>
       <button type="button" class="hub-tab" data-tp="reviews"><span class="n">6</span>Reviews &amp; Stories</button>
+      <button type="button" class="hub-tab" data-tp="flourish"><span class="n">7</span>Overall Flourishing</button>
     </nav>
 
     <div class="hub-panels">
@@ -1641,6 +1664,14 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
       </div>
 
       <!-- 8. RATINGS, REVIEWS & STORIES -->
+      <div class="hub-panel" data-tp="flourish">
+        <div class="panel">
+          <span class="section-eyebrow">Overall flourishing</span>
+          <h2>Overall Flourishing</h2>
+          <p class="sub">A short, research-based check from the <b>Harvard Human Flourishing Program</b> — 12 questions, each 0–10. We calculate your Flourishing scores for you.</p>
+          <div id="flourishBox"></div>
+        </div>
+      </div>
       <div class="hub-panel" data-tp="reviews">
         <div class="panel">
           <span class="section-eyebrow">Ratings &amp; Reviews</span>
@@ -3453,7 +3484,7 @@ function loadLiveMember(profile){
   document.getElementById('dashHello').textContent='Welcome, '+nm;
   document.getElementById('dashboard').classList.add('open'); document.body.style.overflow='hidden';
   DASH.tlImported=false; DASH.tlIndicators=[]; DASH.tlDate='';
-  renderDash(); renderOnboard(); loadProfileForm(); loadSolutions(function(){renderDash();}); loadMessages(); loadPath(); loadMilestones(); loadGoals(); loadReviews(); loadStories();
+  renderDash(); renderOnboard(); loadProfileForm(); loadSolutions(function(){renderDash();}); loadMessages(); loadPath(); loadMilestones(); loadGoals(); loadReviews(); loadStories(); loadFlourish();
   sb.from('members').select('level,stars,joined_at').eq('profile_id',CUR.uid).maybeSingle().then(function(m){
     var mem=(m&&m.data)||{level:'basic',stars:0};
     CUR.stars=mem.stars||0; CUR.level=mem.level||'basic';
@@ -3610,12 +3641,10 @@ var ESS7=[
  {id:'fn_improve',opt:true,t:'Are you working to improve your credit?',type:'yn'}
 ]},
 {key:'housing',name:'Safe & Affordable Housing',intro:'A stable place to call home.',q:[
- {id:'hv_safety',t:'How often do you worry about safety, food, or housing?',type:'h10',lo:'Worry all the time',hi:'Never worry'},
  {id:'ho_cur',t:'What is your current housing?',type:'choice',opts:['Own','Rent','Living with family or friends','Temporary housing','Shelter'],req:true},
  {id:'ho_6mo',t:'We have stable housing *',type:'stoplight',req:true,opts:[{v:'g',t:'We have secured stable housing for the next six months.'},{v:'y',t:'We have only secured stable housing for the next three months. However, we are working towards a housing plan.'},{v:'r',t:'We have not secured stable housing and don’t have a housing plan.'}],score:{g:0,y:2,r:4,Yes:0,Unsure:2,No:4}}
 ]},
 {key:'economic',name:'Income',intro:'Getting money — your work, earnings, and household income.',q:[
- {id:'hv_expense',t:'How often do you worry about being able to meet normal monthly living expenses?',type:'h10',lo:'Worry all the time',hi:'Never worry'},
  {id:'fn_income',t:'Your income',type:'select',opts:INTAKE_INCOME},
  {id:'fn_hhincome',opt:true,t:'Household income',type:'select',opts:INTAKE_INCOME},
  {id:'eo_status',t:'What is your employment status?',type:'choice',opts:['Full-time','Part-time','Self-employed','Unemployed'],req:true,score:{'Full-time':0,'Part-time':2,'Self-employed':1,'Unemployed':4}},
@@ -3629,11 +3658,6 @@ var ESS7=[
  {id:'ed_barrier',opt:true,t:'What are your biggest barriers? (Select all that apply)',type:'multi',opts:['Cost','Time','Transportation','Childcare','Not sure where to start'],showIf:{ed_want:['Yes','Maybe']}}
 ]},
 {key:'health',name:'Health & Wellness',intro:'Your body and mind.',q:[
- {id:'hv_happy',t:'In general, how happy or unhappy do you usually feel?',type:'h10',lo:'Extremely unhappy',hi:'Extremely happy'},
- {id:'hv_phys',t:'In general, how would you rate your physical health?',type:'h10',lo:'Poor',hi:'Excellent'},
- {id:'hv_mental',t:'How would you rate your overall mental health?',type:'h10',lo:'Poor',hi:'Excellent'},
- {id:'hv_worth',t:'Overall, to what extent do you feel the things you do in your life are worthwhile?',type:'h10',lo:'Not at all worthwhile',hi:'Completely worthwhile'},
- {id:'hv_purpose',t:'I understand my purpose in life.',type:'h10',lo:'Strongly disagree',hi:'Strongly agree'},
  {id:'he_care',t:'We have access to health services',type:'stoplight',req:true,opts:[{v:'g',t:'We have access to medical care and can afford to pay for prescriptions and treatments.'},{v:'y',t:'We have access to medical care but can’t afford prescriptions or treatment.'},{v:'r',t:'We have no access to medical care and cannot afford prescriptions or treatment.'}],score:{g:0,y:2,r:4,Yes:0,No:3}},
  {id:'he_dental',opt:true,t:'Have you visited the dentist in the last year?',type:'yn',score:{Yes:0,No:2}},
  {id:'he_stress',t:'How often do stress or anxiety interfere with daily life?',type:'choice',opts:['Never','Sometimes','Often'],req:true,score:{Never:0,Sometimes:2,Often:4}},
@@ -3641,15 +3665,13 @@ var ESS7=[
  {id:'he_concern',opt:true,t:'Is there a health concern preventing you from reaching your goals?',type:'yn',score:{Yes:3,No:0}}
 ]},
 {key:'relationships',name:'Relationships',intro:'Support and connection.',q:[
- {id:'hv_friend',t:'I am content with my friendships and relationships.',type:'h10',lo:'Strongly disagree',hi:'Strongly agree'},
- {id:'hv_relsat',t:'My relationships are as satisfying as I would want them to be.',type:'h10',lo:'Strongly disagree',hi:'Strongly agree'},
  {id:'re_rely',t:'We have close relationships *',type:'stoplight',req:true,opts:[{v:'g',t:'We have close relationships with family members, friends, or community members and reach out to them for help when needed.'},{v:'y',t:'We have relationships with family members, friends, or community members, but we are uncomfortable asking them for help.'},{v:'r',t:'We do not have any close relationships who can help us when needed.'}],score:{g:0,y:2,r:4,Yes:0,Sometimes:2,No:4}},
  {id:'re_conn',t:'We are part of a community *',type:'stoplight',req:true,opts:[{v:'g',t:'We participate in social or community groups that provide positive influence (e.g., church, neighborhood group, club, youth or parent group, etc.) at least once a month.'},{v:'y',t:'We participate in supportive social or community groups less than once a month.'},{v:'r',t:'We do not participate in supportive social or community groups.'}],score:{g:0,y:2,r:4,Yes:0,No:2}},
  {id:'re_safe',t:'Do you feel safe and respected in your closest relationships?',type:'choice',opts:['Always','Usually','Rarely'],req:true,score:{Always:0,Usually:1,Rarely:4}}
 ]}
 ];
 (function(){function _bk(k){for(var i=0;i<ESS7.length;i++)if(ESS7[i].key===k)return ESS7[i];}var _fin=_bk('financial'),_eco=_bk('economic');if(_fin&&_eco){var _mv=[];_fin.q=_fin.q.filter(function(q){if(q.id==='fn_income'||q.id==='fn_hhincome'){_mv.push(q);return false;}return true;});_eco.q=_mv.concat(_eco.q);_eco.name='Income';_fin.name='Financial Health';}var _ord=['housing','economic','health','transportation','financial','relationships','education'];ESS7.sort(function(a,b){var ai=_ord.indexOf(a.key),bi=_ord.indexOf(b.key);return (ai<0?99:ai)-(bi<0?99:bi);});})();
-var OTHER_Q=[{id:'hv_good',t:'I always act to promote good in all circumstances, even in difficult and challenging situations.',type:'h10',lo:'Not true of me',hi:'Completely true of me'},{id:'hv_delay',t:'I am always able to give up some happiness now for greater happiness later.',type:'h10',lo:'Not true of me',hi:'Completely true of me'},{id:'tp_dl',t:'Do you have a valid driver’s license?',type:'yn',req:true},{id:'tp_dl_why',t:'What is keeping you from a valid driver’s license?',type:'multi',opts:['Not interested','Cost of getting one','Legal barriers / fines','Other'],showIf:{tp_dl:'No'}},{id:'ot_cell',t:'Do you have a cell phone?',type:'yn',req:true}];
+var OTHER_Q=[{id:'tp_dl',t:'Do you have a valid driver’s license?',type:'yn',req:true},{id:'tp_dl_why',t:'What is keeping you from a valid driver’s license?',type:'multi',opts:['Not interested','Cost of getting one','Legal barriers / fines','Other'],showIf:{tp_dl:'No'}},{id:'ot_cell',t:'Do you have a cell phone?',type:'yn',req:true}];
 function renderOtherStep(){var h='<p class="a-eyebrow">Almost done</p>'+essNav(ESS7.length)+'<h1 class="a-h1">Other</h1><p class="a-sub">A few more details that help us support you.</p>';OTHER_Q.forEach(function(q){if(aVisible(q))h+=renderQ(q);});h+='<div class="a-nav"><button class="btn btn-outline" data-aback>Back</button><span class="a-nav-r"><button class="btn btn-outline btn-sm" data-asave>Save</button><button class="btn btn-gold" data-anext>Next</button></span></div><p class="sub" id="aSaveMsg" style="margin-top:8px;text-align:right;"></p>';return h;}
 var GOAL_OPTS=['Better job','Reliable transportation','Buy a home','Improve credit','Save money','Finish school','Learn a trade','Start a business','Improve physical health','Improve mental health','Strengthen relationships','Other'];
 var PRIORITY_OPTS=['Housing','Income','Health','Transportation','Financial Health','Relationships','Education'];
@@ -3789,7 +3811,7 @@ function openEpeId(){var nm=(window.CUR&&CUR.name)?CUR.name:(((document.getEleme
 document.addEventListener('click',function(e){if(e.target.closest('#epeIdBtn')){e.preventDefault();openEpeId();}});
 document.addEventListener('click',function(e){var _op=e.target.closest('[data-openprivacy]');if(_op){e.preventDefault();var pm=document.getElementById('privacyModal');if(pm)pm.classList.add('open');return;}if(e.target.closest('#privacyClose')||e.target.closest('#privacyOk')){var pm2=document.getElementById('privacyModal');if(pm2)pm2.classList.remove('open');return;}var pmm=document.getElementById('privacyModal');if(pmm&&pmm.classList.contains('open')&&e.target===pmm){pmm.classList.remove('open');}});
 function rewardsStarTotal(){var baseDone=!!window._baseDone;var curDone=!!window._curDone||!!window._essScores;var hasGoals=(typeof MY_GOALS!=='undefined'&&MY_GOALS.length>0);var hasMile=(typeof MY_MILES!=='undefined'&&Object.keys(MY_MILES||{}).some(function(k){return MY_MILES[k];}));var hasReview=(typeof MY_REVIEWS!=='undefined'&&MY_REVIEWS.length>0);return (baseDone?10:0)+(curDone?10:0)+(hasGoals?10:0)+(hasMile?10:0)+(hasReview?5:0);}
-function openHubTab(id){var tabs=document.getElementById('hubTabs');if(tabs)tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-tp')===id);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(e){}}}
+function openHubTab(id){var tabs=document.getElementById('hubTabs');if(tabs)tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-tp')===id);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(e){}}if(id==='flourish'){try{renderFlourish();}catch(e){}}}
 function renderRewards(){var el=document.getElementById('rewardsBox');if(!el)return;var baseDone=!!window._baseDone;var curDone=!!window._curDone||!!window._essScores;var hasGoals=(typeof MY_GOALS!=='undefined'&&MY_GOALS.length>0);var hasMile=(typeof MY_MILES!=='undefined'&&Object.keys(MY_MILES||{}).some(function(k){return MY_MILES[k];}));var hasReview=(typeof MY_REVIEWS!=='undefined'&&MY_REVIEWS.length>0);var curDate=window._curDate?new Date(window._curDate):null;var unlockMs=(curDate&&!isNaN(curDate.getTime()))?(curDate.getTime()+28*86400000):null;var now=Date.now();var fuAvail=(curDone&&unlockMs!=null&&now>=unlockMs);var fuDateStr='';if(unlockMs){try{fuDateStr=new Date(unlockMs).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});}catch(e){}}function item(t,stars,done){var badge=done?'<span class="rwd-earned">✓ Earned</span>':'<span class="rwd-star">★ '+stars+'</span>';return '<div class="rwd-item'+(done?' done':'')+'"><div class="rwd-main"><div class="rwd-t">'+t+'</div></div>'+badge+'</div>';}var earned=rewardsStarTotal();var fuSub;if(!curDone){fuSub='Complete your Life Assessment first.';}else if(fuAvail){fuSub='Available now — retake your Life Assessment to earn this.';}else{fuSub='🔒 Unlocks 4 weeks after your Life Assessment'+(fuDateStr?(' — available '+fuDateStr):'')+'.';}var big=document.getElementById('rewardsStarBig');if(big)big.innerHTML='<div class="rwd-bigstar-num">★ '+earned+'</div><div class="rwd-bigstar-l">stars earned</div>';var h='<div class="rwd-list">';h+=item('Complete Baseline Life Assessment',10,baseDone);h+=item('Complete Life Assessment',10,curDone);h+='<div class="rwd-item rwd-follow'+(fuAvail?'':' locked')+'"><div class="rwd-main"><div class="rwd-t">↳ Complete a Follow-up Life Assessment</div><div class="rwd-sub">'+fuSub+'</div></div><span class="rwd-star">★ 10</span></div>';h+=item('Setting Goals',10,hasGoals);h+=item('Log Achievements',10,hasMile);h+=item('Review a Solution',5,hasReview);h+='</div>';el.innerHTML=h;}
 var PATH_IND = [
   // ---- Safe & Affordable Housing ----
@@ -4044,6 +4066,52 @@ function pathAnswers(){applyAutoFills();return {now:PATH_NOW,then:PATH_THEN,na:P
 function pathPrefill(){var msg=document.getElementById('prefillMsg');var n=applyPathPrefill();renderPath();if(msg)msg.textContent=n?('Filled '+n+' answer'+(n>1?'s':'')+' from your check-in \u2014 review & adjust below, then Save.'):'Nothing new to pre-fill \u2014 finish your 7 Human Essentials check-in first, or those are already answered.';try{logEvent('action','Path pre-filled from check-in');}catch(e){}}
 function satWidgetInto(elId,val,attr,showTrend){var el=document.getElementById(elId);if(!el)return;var h='<div class="path-sat-top"><div class="path-sat-q">How satisfied are you with life as a whole these days?</div><div class="path-sat-ctx" style="font-size:12px;color:var(--muted);margin:3px 0 9px">A 1–10 scale, based on the Harvard Human Flourishing Index.</div><div class="path-sat">';for(var n=1;n<=10;n++){h+='<button type="button" class="path-sn'+(val===n?' on':'')+'" data-'+attr+'="'+n+'">'+n+'</button>';}var st='';if(showTrend){var _sm=pathSatSummary(PATH_SAT_TREND,PATH_SAT);st=_sm.has?('<div class="sat-trend '+(_sm.diff>0?'up':(_sm.diff<0?'down':'flat'))+'">'+_sm.html+' '+_sm.net+'</div>'):'';}h+='</div><div class="path-sat-lbl"><span>1 - Not at all</span><span>10 - Completely</span></div>'+st+'</div>';el.innerHTML=h;}
 function renderSatWidget(){satWidgetInto('profSat',PATH_SAT,'psat',true);satWidgetInto('baseSat',PATH_SAT_BASE,'psatb',false);}
+/* ============ Overall Flourishing (Harvard Human Flourishing Measure) ============ */
+var FLOUR_DOMAINS={1:'Happiness & life satisfaction',2:'Mental & physical health',3:'Meaning & purpose',4:'Character & virtue',5:'Close social relationships',6:'Financial & material stability'};
+var FLOUR_ITEMS=[
+ {id:'f_ls',d:1,t:'Overall, how satisfied are you with life as a whole these days?',lo:'Not satisfied at all',hi:'Completely satisfied'},
+ {id:'f_hap',d:1,t:'In general, how happy or unhappy do you usually feel?',lo:'Extremely unhappy',hi:'Extremely happy'},
+ {id:'f_ph',d:2,t:'In general, how would you rate your physical health?',lo:'Poor',hi:'Excellent'},
+ {id:'f_mh',d:2,t:'How would you rate your overall mental health?',lo:'Poor',hi:'Excellent'},
+ {id:'f_worth',d:3,t:'Overall, to what extent do you feel the things you do in your life are worthwhile?',lo:'Not at all worthwhile',hi:'Completely worthwhile'},
+ {id:'f_purp',d:3,t:'I understand my purpose in life.',lo:'Strongly disagree',hi:'Strongly agree'},
+ {id:'f_good',d:4,t:'I always act to promote good in all circumstances, even in difficult and challenging situations.',lo:'Not true of me',hi:'Completely true of me'},
+ {id:'f_delay',d:4,t:'I am always able to give up some happiness now for greater happiness later.',lo:'Not true of me',hi:'Completely true of me'},
+ {id:'f_friend',d:5,t:'I am content with my friendships and relationships.',lo:'Strongly disagree',hi:'Strongly agree'},
+ {id:'f_rel',d:5,t:'My relationships are as satisfying as I would want them to be.',lo:'Strongly disagree',hi:'Strongly agree'},
+ {id:'f_exp',d:6,t:'How often do you worry about being able to meet normal monthly living expenses?',lo:'Worry all the time',hi:'Do not ever worry'},
+ {id:'f_safe',d:6,t:'How often do you worry about safety, food, or housing?',lo:'Worry all the time',hi:'Do not ever worry'}
+];
+window._flour=window._flour||{};
+function flourScores(){
+ var f=window._flour||{};
+ function avg(ids){var s=0,n=0;ids.forEach(function(id){if(f[id]!=null){s+=f[id];n++;}});return {v:n?s/n:null,n:n,total:ids.length};}
+ var dom={};for(var d=1;d<=6;d++){(function(dd){dom[dd]=avg(FLOUR_ITEMS.filter(function(x){return x.d===dd;}).map(function(x){return x.id;}));})(d);}
+ var fi=avg(FLOUR_ITEMS.filter(function(x){return x.d<=5;}).map(function(x){return x.id;}));
+ var si=avg(FLOUR_ITEMS.map(function(x){return x.id;}));
+ return {dom:dom,fi:fi,si:si};
+}
+function renderFlourish(){
+ var el=document.getElementById('flourishBox');if(!el)return;var f=window._flour||{};
+ var h='',lastD=null;
+ FLOUR_ITEMS.forEach(function(x){
+   if(x.d!==lastD){h+='<div class="fl-dom">'+FLOUR_DOMAINS[x.d]+'</div>';lastD=x.d;}
+   h+='<div class="fl-q"><div class="fl-qt">'+pEsc(x.t)+'</div><div class="fl-scale">';
+   for(var n=0;n<=10;n++){h+='<button type="button" class="fl-n'+(f[x.id]===n?' on':'')+'" data-fl="'+x.id+'" data-flv="'+n+'">'+n+'</button>';}
+   h+='</div><div class="fl-ends"><span>0 · '+pEsc(x.lo)+'</span><span>10 · '+pEsc(x.hi)+'</span></div></div>';
+ });
+ var sc=flourScores();
+ function fmt(o){return o.v==null?'—':o.v.toFixed(1);}
+ function part(o){return (o.n<o.total)?(' <span class="fl-part">'+o.n+'/'+o.total+'</span>'):'';}
+ h+='<div class="fl-scores"><div class="fl-score"><div class="v">'+fmt(sc.fi)+'</div><div class="l">Flourishing Index'+part(sc.fi)+'</div></div><div class="fl-score"><div class="v">'+fmt(sc.si)+'</div><div class="l">Secure Flourishing Index'+part(sc.si)+'</div></div></div>';
+ h+='<div class="fl-doms">';for(var d=1;d<=6;d++){var o=sc.dom[d];var w=(o.v==null?0:Math.round(o.v*10));h+='<div class="fl-domrow"><span class="nm">'+FLOUR_DOMAINS[d]+'</span><span class="fl-bar"><span style="width:'+w+'%"></span></span><span class="sc">'+(o.v==null?'—':o.v.toFixed(1))+'</span></div>';}h+='</div>';
+ h+='<div class="fl-actions"><button type="button" class="btn btn-gold" id="flourishSave">Save my flourishing check</button> <span class="sub" id="flourishMsg"></span></div>';
+ el.innerHTML=h;
+}
+function loadFlourish(){renderFlourish();if(!(CUR.live&&CUR.uid))return;sb.from('flourishing_checks').select('answers,created_at').eq('member_id',CUR.uid).order('created_at',{ascending:false}).limit(1).then(function(r){if(r&&!r.error&&r.data&&r.data.length){var a=r.data[0].answers;if(a&&typeof a==='object'){window._flour=a;renderFlourish();}}},function(){});}
+function saveFlourish(){var msg=document.getElementById('flourishMsg');if(!(CUR.live&&CUR.uid)){if(msg)msg.textContent='Demo mode — sign in with a real account to save.';return;}var sc=flourScores();if(msg)msg.textContent='Saving…';sb.from('flourishing_checks').insert({member_id:CUR.uid,answers:(window._flour||{}),flourish_index:(sc.fi.v==null?null:+sc.fi.v.toFixed(2)),secure_index:(sc.si.v==null?null:+sc.si.v.toFixed(2))}).then(function(r){if(msg)msg.textContent=(r&&r.error)?('Could not save: '+r.error.message):'Saved ✓';try{logEvent('action','Flourishing check saved');}catch(e){}},function(){if(msg)msg.textContent='Network error — try again.';});}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-fl]');if(b){var id=b.getAttribute('data-fl'),v=+b.getAttribute('data-flv');window._flour=window._flour||{};window._flour[id]=v;var _y=window.scrollY;renderFlourish();window.scrollTo(0,_y);return;}if(e.target.closest('#flourishSave')){saveFlourish();return;}});
+
 
 function pathSatSummary(trend,curVal){trend=trend||[];var parts=[],nf=null,nt=null,today='';try{today=new Date().toLocaleDateString();}catch(e){}if(trend.length){var sT=trend[0],lT=trend[trend.length-1];nf=sT.v;nt=(curVal!=null?curVal:lT.v);parts.push('<span class="st-pt">Started '+pEsc(sT.d)+' &middot; <b>'+sT.v+'</b></span>');if(trend.length>1)parts.push('<span class="st-pt">Last checked '+pEsc(lT.d)+' &middot; <b>'+lT.v+'</b></span>');if(curVal!=null&&curVal!==lT.v)parts.push('<span class="st-pt">Today '+pEsc(today)+' &middot; <b>'+curVal+'</b></span>');}else if(curVal!=null){parts.push('<span class="st-pt">Today '+pEsc(today)+' &middot; <b>'+curVal+'</b></span>');nf=curVal;nt=curVal;}var diff=(nf!=null&&nt!=null)?(nt-nf):0;var net=diff>0?('<span class="st-net">&uarr; +'+diff+'</span>'):(diff<0?('<span class="st-net">&darr; '+diff+'</span>'):'');return {html:parts.join('<span class="st-ar">&rarr;</span>'),net:net,diff:diff,has:parts.length>0};}
 function slLabel(v){return ({g:'\ud83d\udfe2 Green',y:'\ud83d\udfe1 Yellow',r:'\ud83d\udd34 Red'})[v]||'';}
@@ -4248,7 +4316,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
 <script>
 (function(){
   var tabs=document.getElementById('hubTabs');
-  if(tabs){tabs.addEventListener('click',function(e){var b=e.target.closest('.hub-tab');if(!b)return;var id=b.getAttribute('data-tp');tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t===b);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(_r){}}});}
+  if(tabs){tabs.addEventListener('click',function(e){var b=e.target.closest('.hub-tab');if(!b)return;var id=b.getAttribute('data-tp');tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t===b);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(_r){}}if(id==='flourish'){try{renderFlourish();}catch(_r){}}});}
   document.addEventListener('click',function(e){var _st=e.target.closest('#dashStars,.prof-stars');if(_st){openHubTab('rewards');var _ht=document.getElementById('hubTabs');if(_ht){try{_ht.scrollIntoView({behavior:'smooth',block:'start'});}catch(x){}}}});
   var _ptb=document.getElementById('profileTopBtn');if(_ptb)_ptb.addEventListener('click',function(){var tb=document.getElementById('hubTabs');if(tb)tb.querySelectorAll('.hub-tab').forEach(function(t){t.classList.remove('active');});document.querySelectorAll('.hub-panel').forEach(function(pp){pp.classList.toggle('active',pp.getAttribute('data-tp')==='profile');});window.scrollTo(0,0);});
   document.querySelectorAll('.hub-panel .goal').forEach(function(g){g.addEventListener('click',function(){g.classList.toggle('on');});});
