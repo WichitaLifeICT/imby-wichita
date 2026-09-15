@@ -3629,7 +3629,6 @@ var ESS7=[
 ]},
 {key:'financial',name:'Financial Health',intro:'What you do with the money you have — saving, budgeting, banking, and credit.',q:[
  {id:'fn_acct',t:'We use banking services',type:'stoplight',req:true,opts:[{v:'g',t:'We use banking services (checking or savings accounts).'},{v:'y',t:'We use a check cashing service, money orders, or a prepaid banking card.'},{v:'r',t:'We do not use banking services.'}],score:{g:0,y:2,r:4}},
- {id:'fn_bills',t:'Can you usually pay your bills on time?',type:'choice',opts:['Always','Usually','Sometimes','Rarely'],req:true,score:{Always:0,Usually:1,Sometimes:3,Rarely:4}},
  {id:'fn_emerg',t:'We have savings',type:'stoplight',req:true,opts:[{v:'g',t:'We have enough savings to cover three months’ worth of living expenses.'},{v:'y',t:'We have savings, but not enough to cover three months’ living expenses.'},{v:'r',t:'We do not have savings.'}],score:{g:0,y:2,r:4,'None':4,'Under $500':3,'$500–$1,000':2,'Over $1,000':0}},
 ]},
 {key:'housing',name:'Safe & Affordable Housing',intro:'A stable place to call home.',q:[
