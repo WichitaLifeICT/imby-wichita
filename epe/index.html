@@ -1477,7 +1477,6 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
       <button type="button" class="hub-tab" data-tp="ach"><span class="n">4</span>Achievements</button>
       <button type="button" class="hub-tab" data-tp="rewards"><span class="n">5</span>Rewards</button>
       <button type="button" class="hub-tab" data-tp="reviews"><span class="n">6</span>Reviews &amp; Stories</button>
-      <button type="button" class="hub-tab" data-tp="flourish"><span class="n">7</span>Overall Flourishing</button>
     </nav>
 
     <div class="hub-panels">
@@ -1583,6 +1582,12 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
             <div class="a-wrap" id="assessBodyBase"></div>
           </div>
         </div>
+        <div class="panel" id="flourishPanelBase" style="margin-top:24px;">
+          <span class="section-eyebrow">Overall flourishing · baseline</span>
+          <h2>Overall Flourishing</h2>
+          <p class="sub">Where you started — the Harvard Human Flourishing check (12 questions, 0–10).</p>
+          <div id="flourishBoxBase"></div>
+        </div>
       </div>
         <div id="lifeCurrent" class="life-sub" style="display:none;">
         <div class="place" style="margin-bottom:16px;background:var(--sage-light);border-color:transparent;">
@@ -1602,7 +1607,12 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
         <div class="a-wrap" id="assessBody"></div>
       </div>
     </div>
-
+        <div class="panel" id="flourishPanelCur" style="margin-top:24px;">
+          <span class="section-eyebrow">Overall flourishing · current</span>
+          <h2>Overall Flourishing</h2>
+          <p class="sub">Where you are now — the Harvard Human Flourishing check (12 questions, 0–10).</p>
+          <div id="flourishBox"></div>
+        </div>
         </div>
       </div>
 
@@ -1664,14 +1674,6 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
       </div>
 
       <!-- 8. RATINGS, REVIEWS & STORIES -->
-      <div class="hub-panel" data-tp="flourish">
-        <div class="panel">
-          <span class="section-eyebrow">Overall flourishing</span>
-          <h2>Overall Flourishing</h2>
-          <p class="sub">A short, research-based check from the <b>Harvard Human Flourishing Program</b> — 12 questions, each 0–10. We calculate your Flourishing scores for you.</p>
-          <div id="flourishBox"></div>
-        </div>
-      </div>
       <div class="hub-panel" data-tp="reviews">
         <div class="panel">
           <span class="section-eyebrow">Ratings &amp; Reviews</span>
@@ -3811,7 +3813,7 @@ function openEpeId(){var nm=(window.CUR&&CUR.name)?CUR.name:(((document.getEleme
 document.addEventListener('click',function(e){if(e.target.closest('#epeIdBtn')){e.preventDefault();openEpeId();}});
 document.addEventListener('click',function(e){var _op=e.target.closest('[data-openprivacy]');if(_op){e.preventDefault();var pm=document.getElementById('privacyModal');if(pm)pm.classList.add('open');return;}if(e.target.closest('#privacyClose')||e.target.closest('#privacyOk')){var pm2=document.getElementById('privacyModal');if(pm2)pm2.classList.remove('open');return;}var pmm=document.getElementById('privacyModal');if(pmm&&pmm.classList.contains('open')&&e.target===pmm){pmm.classList.remove('open');}});
 function rewardsStarTotal(){var baseDone=!!window._baseDone;var curDone=!!window._curDone||!!window._essScores;var hasGoals=(typeof MY_GOALS!=='undefined'&&MY_GOALS.length>0);var hasMile=(typeof MY_MILES!=='undefined'&&Object.keys(MY_MILES||{}).some(function(k){return MY_MILES[k];}));var hasReview=(typeof MY_REVIEWS!=='undefined'&&MY_REVIEWS.length>0);return (baseDone?10:0)+(curDone?10:0)+(hasGoals?10:0)+(hasMile?10:0)+(hasReview?5:0);}
-function openHubTab(id){var tabs=document.getElementById('hubTabs');if(tabs)tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-tp')===id);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(e){}}if(id==='flourish'){try{renderFlourish();}catch(e){}}}
+function openHubTab(id){var tabs=document.getElementById('hubTabs');if(tabs)tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-tp')===id);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(e){}}}
 function renderRewards(){var el=document.getElementById('rewardsBox');if(!el)return;var baseDone=!!window._baseDone;var curDone=!!window._curDone||!!window._essScores;var hasGoals=(typeof MY_GOALS!=='undefined'&&MY_GOALS.length>0);var hasMile=(typeof MY_MILES!=='undefined'&&Object.keys(MY_MILES||{}).some(function(k){return MY_MILES[k];}));var hasReview=(typeof MY_REVIEWS!=='undefined'&&MY_REVIEWS.length>0);var curDate=window._curDate?new Date(window._curDate):null;var unlockMs=(curDate&&!isNaN(curDate.getTime()))?(curDate.getTime()+28*86400000):null;var now=Date.now();var fuAvail=(curDone&&unlockMs!=null&&now>=unlockMs);var fuDateStr='';if(unlockMs){try{fuDateStr=new Date(unlockMs).toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});}catch(e){}}function item(t,stars,done){var badge=done?'<span class="rwd-earned">✓ Earned</span>':'<span class="rwd-star">★ '+stars+'</span>';return '<div class="rwd-item'+(done?' done':'')+'"><div class="rwd-main"><div class="rwd-t">'+t+'</div></div>'+badge+'</div>';}var earned=rewardsStarTotal();var fuSub;if(!curDone){fuSub='Complete your Life Assessment first.';}else if(fuAvail){fuSub='Available now — retake your Life Assessment to earn this.';}else{fuSub='🔒 Unlocks 4 weeks after your Life Assessment'+(fuDateStr?(' — available '+fuDateStr):'')+'.';}var big=document.getElementById('rewardsStarBig');if(big)big.innerHTML='<div class="rwd-bigstar-num">★ '+earned+'</div><div class="rwd-bigstar-l">stars earned</div>';var h='<div class="rwd-list">';h+=item('Complete Baseline Life Assessment',10,baseDone);h+=item('Complete Life Assessment',10,curDone);h+='<div class="rwd-item rwd-follow'+(fuAvail?'':' locked')+'"><div class="rwd-main"><div class="rwd-t">↳ Complete a Follow-up Life Assessment</div><div class="rwd-sub">'+fuSub+'</div></div><span class="rwd-star">★ 10</span></div>';h+=item('Setting Goals',10,hasGoals);h+=item('Log Achievements',10,hasMile);h+=item('Review a Solution',5,hasReview);h+='</div>';el.innerHTML=h;}
 var PATH_IND = [
   // ---- Safe & Affordable Housing ----
@@ -4082,41 +4084,45 @@ var FLOUR_ITEMS=[
  {id:'f_exp',d:6,t:'How often do you worry about being able to meet normal monthly living expenses?',lo:'Worry all the time',hi:'Do not ever worry'},
  {id:'f_safe',d:6,t:'How often do you worry about safety, food, or housing?',lo:'Worry all the time',hi:'Do not ever worry'}
 ];
-window._flour=window._flour||{};
-function flourScores(){
- var f=window._flour||{};
+window._flour=window._flour||{};window._flourBase=window._flourBase||{};
+function flourStore(mode){return mode==='base'?window._flourBase:window._flour;}
+function flourScores(mode){
+ var f=flourStore(mode);
  function avg(ids){var s=0,n=0;ids.forEach(function(id){if(f[id]!=null){s+=f[id];n++;}});return {v:n?s/n:null,n:n,total:ids.length};}
  var dom={};for(var d=1;d<=6;d++){(function(dd){dom[dd]=avg(FLOUR_ITEMS.filter(function(x){return x.d===dd;}).map(function(x){return x.id;}));})(d);}
  var fi=avg(FLOUR_ITEMS.filter(function(x){return x.d<=5;}).map(function(x){return x.id;}));
  var si=avg(FLOUR_ITEMS.map(function(x){return x.id;}));
  return {dom:dom,fi:fi,si:si};
 }
-function renderFlourish(){
- var el=document.getElementById('flourishBox');if(!el)return;var f=window._flour||{};
+function renderFlour(mode){
+ var el=document.getElementById(mode==='base'?'flourishBoxBase':'flourishBox');if(!el)return;var f=flourStore(mode);
  var h='',lastD=null;
  FLOUR_ITEMS.forEach(function(x){
    if(x.d!==lastD){h+='<div class="fl-dom">'+FLOUR_DOMAINS[x.d]+'</div>';lastD=x.d;}
    h+='<div class="fl-q"><div class="fl-qt">'+pEsc(x.t)+'</div><div class="fl-scale">';
-   for(var n=0;n<=10;n++){h+='<button type="button" class="fl-n'+(f[x.id]===n?' on':'')+'" data-fl="'+x.id+'" data-flv="'+n+'">'+n+'</button>';}
+   for(var n=0;n<=10;n++){h+='<button type="button" class="fl-n'+(f[x.id]===n?' on':'')+'" data-fl="'+x.id+'" data-flv="'+n+'" data-flm="'+mode+'">'+n+'</button>';}
    h+='</div><div class="fl-ends"><span>0 · '+pEsc(x.lo)+'</span><span>10 · '+pEsc(x.hi)+'</span></div></div>';
  });
- var sc=flourScores();
+ var sc=flourScores(mode);
  function fmt(o){return o.v==null?'—':o.v.toFixed(1);}
  function part(o){return (o.n<o.total)?(' <span class="fl-part">'+o.n+'/'+o.total+'</span>'):'';}
  h+='<div class="fl-scores"><div class="fl-score"><div class="v">'+fmt(sc.fi)+'</div><div class="l">Flourishing Index'+part(sc.fi)+'</div></div><div class="fl-score"><div class="v">'+fmt(sc.si)+'</div><div class="l">Secure Flourishing Index'+part(sc.si)+'</div></div></div>';
  h+='<div class="fl-doms">';for(var d=1;d<=6;d++){var o=sc.dom[d];var w=(o.v==null?0:Math.round(o.v*10));h+='<div class="fl-domrow"><span class="nm">'+FLOUR_DOMAINS[d]+'</span><span class="fl-bar"><span style="width:'+w+'%"></span></span><span class="sc">'+(o.v==null?'—':o.v.toFixed(1))+'</span></div>';}h+='</div>';
- h+='<div class="fl-actions"><button type="button" class="btn btn-gold" id="flourishSave">Save my flourishing check</button> <span class="sub" id="flourishMsg"></span></div>';
+ var sid=(mode==='base'?'flourishSaveBase':'flourishSave'),mid=(mode==='base'?'flourishMsgBase':'flourishMsg');
+ h+='<div class="fl-actions"><button type="button" class="btn btn-gold" id="'+sid+'">Save '+(mode==='base'?'baseline':'current')+' flourishing</button> <span class="sub" id="'+mid+'"></span></div>';
  el.innerHTML=h;
 }
-function loadFlourish(){renderFlourish();if(!(CUR.live&&CUR.uid))return;sb.from('flourishing_checks').select('answers,created_at').eq('member_id',CUR.uid).order('created_at',{ascending:false}).limit(1).then(function(r){if(r&&!r.error&&r.data&&r.data.length){var a=r.data[0].answers;if(a&&typeof a==='object'){window._flour=a;renderFlourish();}}},function(){});}
-function saveFlourish(){var msg=document.getElementById('flourishMsg');if(!(CUR.live&&CUR.uid)){if(msg)msg.textContent='Demo mode — sign in with a real account to save.';return;}var sc=flourScores();if(msg)msg.textContent='Saving…';sb.from('flourishing_checks').insert({member_id:CUR.uid,answers:(window._flour||{}),flourish_index:(sc.fi.v==null?null:+sc.fi.v.toFixed(2)),secure_index:(sc.si.v==null?null:+sc.si.v.toFixed(2))}).then(function(r){if(msg)msg.textContent=(r&&r.error)?('Could not save: '+r.error.message):'Saved ✓';try{logEvent('action','Flourishing check saved');}catch(e){}},function(){if(msg)msg.textContent='Network error — try again.';});}
-document.addEventListener('click',function(e){var b=e.target.closest('[data-fl]');if(b){var id=b.getAttribute('data-fl'),v=+b.getAttribute('data-flv');window._flour=window._flour||{};window._flour[id]=v;var _y=window.scrollY;renderFlourish();window.scrollTo(0,_y);return;}if(e.target.closest('#flourishSave')){saveFlourish();return;}});
+function renderFlourish(){renderFlour('cur');renderFlour('base');}
+function loadFlourish(){renderFlourish();if(!(CUR.live&&CUR.uid))return;sb.from('flourishing_checks').select('answers,kind,created_at').eq('member_id',CUR.uid).order('created_at',{ascending:false}).then(function(r){if(!(r&&!r.error&&r.data))return;var cur=null,base=null;r.data.forEach(function(row){var k=row.kind||'current';if(k==='baseline'){if(!base)base=row;}else{if(!cur)cur=row;}});if(cur&&cur.answers&&typeof cur.answers==='object')window._flour=cur.answers;if(base&&base.answers&&typeof base.answers==='object')window._flourBase=base.answers;renderFlourish();},function(){});}
+function saveFlour(mode){var msg=document.getElementById(mode==='base'?'flourishMsgBase':'flourishMsg');if(!(CUR.live&&CUR.uid)){if(msg)msg.textContent='Demo mode — sign in with a real account to save.';return;}var sc=flourScores(mode);if(msg)msg.textContent='Saving…';sb.from('flourishing_checks').insert({member_id:CUR.uid,kind:(mode==='base'?'baseline':'current'),answers:flourStore(mode),flourish_index:(sc.fi.v==null?null:+sc.fi.v.toFixed(2)),secure_index:(sc.si.v==null?null:+sc.si.v.toFixed(2))}).then(function(r){if(msg)msg.textContent=(r&&r.error)?('Could not save: '+r.error.message):'Saved ✓';try{logEvent('action','Flourishing check saved');}catch(e){}},function(){if(msg)msg.textContent='Network error — try again.';});}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-fl]');if(b){var id=b.getAttribute('data-fl'),v=+b.getAttribute('data-flv'),m=b.getAttribute('data-flm')||'cur';flourStore(m)[id]=v;var _y=window.scrollY;renderFlour(m);window.scrollTo(0,_y);return;}if(e.target.closest('#flourishSave')){saveFlour('cur');return;}if(e.target.closest('#flourishSaveBase')){saveFlour('base');return;}});
+try{renderFlourish();}catch(_fe){}
 
 
 function pathSatSummary(trend,curVal){trend=trend||[];var parts=[],nf=null,nt=null,today='';try{today=new Date().toLocaleDateString();}catch(e){}if(trend.length){var sT=trend[0],lT=trend[trend.length-1];nf=sT.v;nt=(curVal!=null?curVal:lT.v);parts.push('<span class="st-pt">Started '+pEsc(sT.d)+' &middot; <b>'+sT.v+'</b></span>');if(trend.length>1)parts.push('<span class="st-pt">Last checked '+pEsc(lT.d)+' &middot; <b>'+lT.v+'</b></span>');if(curVal!=null&&curVal!==lT.v)parts.push('<span class="st-pt">Today '+pEsc(today)+' &middot; <b>'+curVal+'</b></span>');}else if(curVal!=null){parts.push('<span class="st-pt">Today '+pEsc(today)+' &middot; <b>'+curVal+'</b></span>');nf=curVal;nt=curVal;}var diff=(nf!=null&&nt!=null)?(nt-nf):0;var net=diff>0?('<span class="st-net">&uarr; +'+diff+'</span>'):(diff<0?('<span class="st-net">&darr; '+diff+'</span>'):'');return {html:parts.join('<span class="st-ar">&rarr;</span>'),net:net,diff:diff,has:parts.length>0};}
 function slLabel(v){return ({g:'\ud83d\udfe2 Green',y:'\ud83d\udfe1 Yellow',r:'\ud83d\udd34 Red'})[v]||'';}
 function slBuckets(mapObj,col,locked){var byB={};PATH_IND.forEach(function(x){if(PATH_AUTO[x.id])return;(byB[x.b]=byB[x.b]||[]).push(x);});var h='<div class="ess-nav" style="margin-bottom:14px;">'+PATH_BUCKETS.filter(function(bk){return (byB[bk.key]||[]).length;}).map(function(bk){return '<button type="button" class="ess-chip" data-sljump="'+col+':'+bk.key+'">'+pathShort(bk.key)+'</button>';}).join('')+'</div>';PATH_BUCKETS.forEach(function(bk){var items=byB[bk.key]||[];if(!items.length)return;var ansN=items.filter(function(x){return mapObj[x.id];}).length;h+='<div class="path-b"><button type="button" class="path-bh" data-slb="'+col+':'+bk.key+'"><span>'+bk.icon+' '+bk.name+'</span><span class="path-count">'+ansN+'/'+items.length+'</span></button><div class="path-body" id="slb-'+col+'-'+bk.key+'" style="display:none;">';items.forEach(function(x){var val=mapObj[x.id];h+='<div class="pi-card"><div class="pi-hd">'+pEsc(x.q)+'</div><div class="pi-def">'+pEsc(x.def)+'</div><div class="pi-opts">'+['g','y','r'].map(function(v){return '<button type="button" class="path-o '+v+(val===v?' on':'')+'"'+(locked?' disabled style="opacity:.65;cursor:default"':(' data-slc="'+col+'" data-sli="'+x.id+'" data-slv="'+v+'"'))+'>'+pEsc(x[v])+'</button>';}).join('')+'</div>'+((col==='now'&&PATH_THEN[x.id]&&PATH_THEN[x.id]!==val)?('<div class="pi-last">Baseline: '+slLabel(PATH_THEN[x.id])+'</div>'):'')+'</div>';});h+='</div></div>';});return h;}
-function setLifeTab(w){var b=document.getElementById('lifeBaseline'),c=document.getElementById('lifeCurrent');if(!b||!c)return;var cur=(w==='current');b.style.display=cur?'none':'';c.style.display=cur?'':'none';var tiles=document.querySelectorAll('[data-lifetab]');for(var i=0;i<tiles.length;i++)tiles[i].classList.toggle('active',tiles[i].getAttribute('data-lifetab')===w);}
+function setLifeTab(w){var b=document.getElementById('lifeBaseline'),c=document.getElementById('lifeCurrent');if(!b||!c)return;var cur=(w==='current');b.style.display=cur?'none':'';c.style.display=cur?'':'none';var tiles=document.querySelectorAll('[data-lifetab]');for(var i=0;i<tiles.length;i++)tiles[i].classList.toggle('active',tiles[i].getAttribute('data-lifetab')===w);try{if(typeof renderFlourish==='function')renderFlourish();}catch(_fe){}}
 function baselineRatable(){return PATH_IND.filter(function(x){return !PATH_AUTO[x.id];});}function baselineAnswered(id){return !!PATH_THEN[id]||!!(PATH_NA&&PATH_NA[id]);}function baselineCount(){var it=baselineRatable(),n=0;it.forEach(function(x){if(baselineAnswered(x.id))n++;});return {done:n,total:it.length};}function baselineDone(){var c=baselineCount();return c.total>0&&c.done>=c.total;}function renderBaseline(){var el=document.getElementById('baselineBox');if(!el)return;var intro=document.getElementById('baseIntro');var inl=document.getElementById('baseInline');var open=inl&&inl.style.display!=='none';var started=Object.keys(PATH_THEN).length>0||Object.keys(ANS_BASE).length>0;var done=baselineDone();if(open){el.innerHTML='';if(intro)intro.style.display='none';return;}if(done){el.innerHTML='<div class="place" style="background:var(--sage-light);border-color:transparent;"><div class="place-ic">📌</div><div><b>Baseline recorded'+(PATH_BASE_DATE?(' · '+pEsc(PATH_BASE_DATE)):'')+'</b><p class="sub" style="margin:2px 0 0;">Locked as your starting point — the same questions as your current check-in. Refine it only if it was not accurate.</p></div><button type="button" class="btn btn-outline btn-sm" id="startBaseline" style="margin-left:auto;">Refine baseline</button></div>';if(intro)intro.style.display='none';}else if(started){var c=baselineCount();el.innerHTML='<div class="place" style="background:#fbf1dc;border-color:transparent;"><div class="place-ic">📝</div><div><b>Finish your baseline assessment</b><p class="sub" style="margin:2px 0 0;">You\'ve rated <b>'+c.done+' of '+c.total+'</b> areas so far. There\'s no need to answer everything at once — finish it to lock your starting point and unlock your progress view.</p></div></div><a href="#" id="startBaseline" class="btn btn-gold" style="display:block;width:100%;box-sizing:border-box;text-align:center;font-size:17px;padding:15px 20px;margin-top:12px;">Finish your baseline assessment</a>';if(intro)intro.style.display='none';}else{el.innerHTML='';if(intro&&(!inl||inl.style.display==='none'))intro.style.display='';}}
 function renderCurrent(){var el=document.getElementById('currentBox');if(!el)return;var baseSet=Object.keys(PATH_THEN).length>0||Object.keys(ANS_BASE).length>0;if(!baseSet){el.innerHTML='<div class="place"><div class="place-ic">\ud83d\udd12</div><div><b>Set your baseline first</b><p class="sub" style="margin:2px 0 0;">Your current check-in unlocks once you have recorded a baseline in the <b>Baseline</b> tab.</p></div><button type="button" class="btn btn-gold btn-sm" style="margin-left:auto;" data-gotobase>Go to Baseline</button></div>';return;}var h='';var haveCur=Object.keys(PATH_NOW).length>0;if(haveCur){var imp=0,dec=0,same=0;PATH_IND.forEach(function(x){var n=PATH_NOW[x.id],t=PATH_THEN[x.id];if(n&&t){var d=pathRank(n)-pathRank(t);if(d>0)imp++;else if(d<0)dec++;else same++;}});if(imp+dec+same>0)h+='<div class="place" style="margin-bottom:14px;"><div class="place-ic">\ud83d\udcc8</div><div><b>Progress since baseline</b><p class="sub" style="margin:2px 0 0;"><b style="color:var(--sage)">'+imp+' improved</b> \u00b7 '+same+' unchanged'+(dec?(' \u00b7 <b style="color:var(--coral)">'+dec+' declined</b>'):'')+'</p></div><button type="button" class="btn btn-outline btn-sm" data-pathresults style="margin-left:auto;">View details</button></div>';}if(!haveCur)h+='<p class="sub">Take the check-in above to record where you are today \u2014 it saves your \ud83d\udfe2\ud83d\udfe1\ud83d\udd34 ratings together with your answers.</p>';el.innerHTML=h;}
 function saveBaselineCurrent(which){var msg=document.getElementById(which==='base'?'baseMsg':'curMsg');if(!CUR.live||!CUR.uid){if(msg)msg.textContent='Sign in with a real account to save.';return;}if(msg)msg.textContent='Saving\u2026';sb.from('path_assessments').insert({member_id:CUR.uid,kind:AMODE,answers:pathAnswers(),satisfaction:(AMODE==='baseline'?PATH_SAT_BASE:PATH_SAT)}).then(function(r){if(r&&r.error){if(msg)msg.textContent='Could not save: '+r.error.message;return;}if(which==='base')BASE_REFINE=false;if(msg)msg.textContent='Saved \u2713';try{logEvent('action',which==='base'?'Baseline saved':'Current check-in saved');}catch(e){}loadPath();},function(){if(msg)msg.textContent='Network error \u2014 try again.';});}
@@ -4316,7 +4322,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
 <script>
 (function(){
   var tabs=document.getElementById('hubTabs');
-  if(tabs){tabs.addEventListener('click',function(e){var b=e.target.closest('.hub-tab');if(!b)return;var id=b.getAttribute('data-tp');tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t===b);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(_r){}}if(id==='flourish'){try{renderFlourish();}catch(_r){}}});}
+  if(tabs){tabs.addEventListener('click',function(e){var b=e.target.closest('.hub-tab');if(!b)return;var id=b.getAttribute('data-tp');tabs.querySelectorAll('.hub-tab').forEach(function(t){t.classList.toggle('active',t===b);});document.querySelectorAll('.hub-panel').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-tp')===id);});if(id==='rewards'){try{renderRewards();}catch(_r){}}});}
   document.addEventListener('click',function(e){var _st=e.target.closest('#dashStars,.prof-stars');if(_st){openHubTab('rewards');var _ht=document.getElementById('hubTabs');if(_ht){try{_ht.scrollIntoView({behavior:'smooth',block:'start'});}catch(x){}}}});
   var _ptb=document.getElementById('profileTopBtn');if(_ptb)_ptb.addEventListener('click',function(){var tb=document.getElementById('hubTabs');if(tb)tb.querySelectorAll('.hub-tab').forEach(function(t){t.classList.remove('active');});document.querySelectorAll('.hub-panel').forEach(function(pp){pp.classList.toggle('active',pp.getAttribute('data-tp')==='profile');});window.scrollTo(0,0);});
   document.querySelectorAll('.hub-panel .goal').forEach(function(g){g.addEventListener('click',function(){g.classList.toggle('on');});});
