@@ -3636,19 +3636,20 @@ var ESS7=[
  {id:'ho_cur',t:'What is your current housing?',type:'choice',opts:['Own','Rent','Temporary housing (living with family, friends, or other)','Shelter'],req:true},
  {id:'ho_6mo',t:'We have stable housing',type:'stoplight',req:true,opts:[{v:'g',t:'We have secured stable housing for the next six months.'},{v:'y',t:'We have only secured stable housing for the next three months. However, we are working towards a housing plan.'},{v:'r',t:'We have not secured stable housing and don’t have a housing plan.'}],score:{g:0,y:2,r:4,Yes:0,Unsure:2,No:4}}
 ]},
-{key:'economic',name:'Income',intro:'Getting money — your work, earnings, and household income.',q:[
+{key:'economic',name:'Income & Employment',intro:'Getting money — your work, earnings, and household income.',q:[
  {id:'fn_income',t:'Your income',type:'select',opts:INTAKE_INCOME},
  {id:'fn_hhincome',t:'Household income',type:'select',opts:INTAKE_INCOME},
  {id:'eo_status',t:'What is your employment status?',type:'multi',opts:['Full-time','Part-time','Self-employed','Unemployed','Retired','On disability'],req:true},
  {id:'eo_income',t:'We have enough income',type:'stoplight',req:true,opts:[{v:'g',t:'We have enough income to meet our basic needs, and we also have extra money.'},{v:'y',t:'We have enough income to meet our basic needs, but no extra.'},{v:'r',t:'We do not have enough income to meet our basic needs.'}],score:{g:0,y:2,r:4,Yes:0,Mostly:2,No:4}},
  {id:'eo_earn',t:'I have the ability to generate income',type:'stoplight',req:true,opts:[{v:'g',t:'I have the preparation and skills necessary to earn money as well as all necessary documents/permits.'},{v:'y',t:'I do not have all the necessary documents/permits needed to earn money. And/or I have some skills, but I would like to learn more advanced skills in order to earn more money.'},{v:'r',t:'I do not have the training, skills, ID or other necessary work documents/permits needed to earn money.'}]},
+ {id:'eo_ready',t:'Employment readiness',type:'stoplight',req:true,opts:[{v:'g',t:'I have a resume and feel prepared to interview for a job.'},{v:'y',t:"I have a resume but don't feel prepared to be interviewed for a job."},{v:'r',t:"I don't have a resume and feel unprepared to be interviewed for a job."}]},
  {id:'eo_barriers',t:'Do you face barriers to opportunity?',type:'stoplight',req:true,opts:[{v:'g',t:'I do not face barriers to opportunity.'},{v:'y',t:'I face a few barriers to opportunity, but I have a path around them.'},{v:'r',t:'I face significant barriers to opportunity that hold me back.'}]},
  {id:'ot_cell',t:'Do you have a cell phone?',type:'yn',req:true},
 ]},
 {key:'education',name:'Education',intro:'Learning and training for what is next.',q:[
  {id:'ed_high',t:'Highest education completed?',type:'multi',opts:['High school','GED','Some college','Associate','Bachelor’s','Graduate','Trade school'],req:true},
  {id:'ed_want',t:'Would you like additional education or training?',type:'choice',opts:['Yes','Maybe','No'],req:true,score:{Yes:2,Maybe:1,No:0}},
- {id:'ed_barrier',opt:true,t:'What are your biggest barriers? (Select all that apply)',type:'multi',opts:['Cost','Time','Transportation','Childcare','Not sure where to start'],showIf:{ed_want:['Yes','Maybe']}}
+ {id:'ed_barrier',t:'What are your biggest barriers? (Select all that apply)',type:'multi',opts:['Cost','Time','Transportation','Childcare','Not sure where to start'],showIf:{ed_want:['Yes','Maybe']}}
 ]},
 {key:'health',name:'Health & Wellness',intro:'Your body and mind.',q:[
  {id:'he_care',t:'We have access to health services',type:'stoplight',req:true,opts:[{v:'g',t:'We have access to medical care and can afford to pay for prescriptions and treatments.'},{v:'y',t:'We have access to medical care but can’t afford prescriptions or treatment.'},{v:'r',t:'We have no access to medical care and cannot afford prescriptions or treatment.'}],score:{g:0,y:2,r:4,Yes:0,No:3}},
@@ -3663,7 +3664,7 @@ var ESS7=[
  {id:'re_safe',t:'Do you feel safe and respected in your closest relationships?',type:'choice',opts:['Always','Usually','Rarely'],req:true,score:{Always:0,Usually:1,Rarely:4}}
 ]}
 ];
-(function(){function _bk(k){for(var i=0;i<ESS7.length;i++)if(ESS7[i].key===k)return ESS7[i];}var _fin=_bk('financial'),_eco=_bk('economic');if(_fin&&_eco){var _mv=[];_fin.q=_fin.q.filter(function(q){if(q.id==='fn_income'||q.id==='fn_hhincome'){_mv.push(q);return false;}return true;});_eco.q=_mv.concat(_eco.q);_eco.name='Income';_fin.name='Financial Health';}var _ord=['housing','economic','health','transportation','financial','relationships','education'];ESS7.sort(function(a,b){var ai=_ord.indexOf(a.key),bi=_ord.indexOf(b.key);return (ai<0?99:ai)-(bi<0?99:bi);});})();
+(function(){function _bk(k){for(var i=0;i<ESS7.length;i++)if(ESS7[i].key===k)return ESS7[i];}var _fin=_bk('financial'),_eco=_bk('economic');if(_fin&&_eco){var _mv=[];_fin.q=_fin.q.filter(function(q){if(q.id==='fn_income'||q.id==='fn_hhincome'){_mv.push(q);return false;}return true;});_eco.q=_mv.concat(_eco.q);_eco.name='Income & Employment';_fin.name='Financial Health';}var _ord=['housing','economic','health','transportation','financial','relationships','education'];ESS7.sort(function(a,b){var ai=_ord.indexOf(a.key),bi=_ord.indexOf(b.key);return (ai<0?99:ai)-(bi<0?99:bi);});})();
 var OTHER_Q=[];
 function renderOtherStep(){var h='<p class="a-eyebrow">Almost done</p>'+essNav(ESS7.length)+'<h1 class="a-h1">Other</h1><p class="a-sub">A few more details that help us support you.</p>';OTHER_Q.forEach(function(q){if(aVisible(q))h+=renderQ(q);});h+='<div class="a-nav"><button class="btn btn-outline" data-aback>Back</button><span class="a-nav-r"><button class="btn btn-outline btn-sm" data-asave>Save</button><button class="btn btn-gold" data-anext>Next</button></span></div><p class="sub" id="aSaveMsg" style="margin-top:8px;text-align:right;"></p>';return h;}
 var GOAL_OPTS=['Better job','Reliable transportation','Buy a home','Improve credit','Save money','Finish school','Learn a trade','Start a business','Improve physical health','Improve mental health','Strengthen relationships','Other'];
@@ -3699,7 +3700,7 @@ function renderQ(q){var v=AACT()[q.id];var h='<div class="aq"><p class="aq-t">'+
   else{var opts=q.type==='yn'?['Yes','No']:q.opts;h+='<div class="aopts">';opts.forEach(function(o){h+='<button type="button" class="aopt'+(v===o?' active':'')+'" data-q="'+q.id+'" data-v="'+aEsc(o)+'">'+o+'</button>';});h+='</div>';}
   h+=gsHtml(q.id,AACT()[q.id]);
   return h+'</div>';}
-function essNav(cur){var S={transportation:'Transportation',financial:'Financial Health',housing:'Affordable Housing',economic:'Income',education:'Education',health:'Health',relationships:'Relationships'};var h='<div class="ess-nav">';h+='<button type="button" class="ess-chip'+(cur===0?' active':'')+'" data-ajump="0">Flourishing</button>';h+=ESS7.map(function(e,i){return '<button type="button" class="ess-chip'+((i+1)===cur?' active':'')+'" data-ajump="'+(i+1)+'">'+(S[e.key]||e.name)+'</button>';}).join('');return h+'</div>';}
+function essNav(cur){var S={transportation:'Transportation',financial:'Financial Health',housing:'Affordable Housing',economic:'Income & Employment',education:'Education',health:'Health',relationships:'Relationships'};var h='<div class="ess-nav">';h+='<button type="button" class="ess-chip'+(cur===0?' active':'')+'" data-ajump="0">Flourishing</button>';h+=ESS7.map(function(e,i){return '<button type="button" class="ess-chip'+((i+1)===cur?' active':'')+'" data-ajump="'+(i+1)+'">'+(S[e.key]||e.name)+'</button>';}).join('');return h+'</div>';}
 function bucketFor(k){return k==='transportation'?'transport':k;}
 function slForBucket(bkey,col,which){var items=(typeof PATH_IND!=='undefined'?PATH_IND:[]).filter(function(x){return x.b===bkey&&!PATH_AUTO[x.id];});if(which==='ess')items=items.filter(function(x){return !x.opt;});else if(which==='opt')items=items.filter(function(x){return x.opt;});if(!items.length)return '';var mapObj=(col==='then')?PATH_THEN:PATH_NOW;var h='';items.forEach(function(x){var val=mapObj[x.id];h+='<div class="pi-card"><div class="pi-hd">'+pEsc(x.q)+'</div><div class="pi-def">'+pEsc(x.def)+'</div><div class="pi-opts">'+['g','y','r'].map(function(v){return '<button type="button" class="path-o '+v+(val===v?' on':'')+'" data-slc="'+col+'" data-sli="'+x.id+'" data-slv="'+v+'">'+pEsc(x[v])+'</button>';}).join('')+'</div><div class="gs-slot">'+gsHtml(x.id,val)+'</div>'+tellMore(x.id)+'</div>';});return h;}
 function renderEssentialStep(e,i){var h='<p class="a-eyebrow">Essential '+(i+1)+' of '+ESS7.length+'</p>'+essNav(i+1)+'<h1 class="a-h1">'+e.name+'</h1><p class="a-sub">'+e.intro+'</p>';var _col=AMODE==='baseline'?'then':'now';var _LEG='<div class="sl-legend">Rate this area — tap <span class="sl-lg">🟢 doing well</span> · <span class="sl-lg">🟡 getting there</span> · <span class="sl-lg">🔴 need support</span></div>';var _othE=e.q.filter(function(q){return q.type!=='stoplight'&&!q.opt&&aVisible(q);}),_othO=e.q.filter(function(q){return q.type!=='stoplight'&&q.opt&&aVisible(q);}),_stpE=e.q.filter(function(q){return q.type==='stoplight'&&!q.opt&&aVisible(q);}),_stpO=e.q.filter(function(q){return q.type==='stoplight'&&q.opt&&aVisible(q);});var _tileE=slForBucket(bucketFor(e.key),_col,'ess'),_tileO=slForBucket(bucketFor(e.key),_col,'opt');_othE.forEach(function(q){h+=renderQ(q);});if(_stpE.length||_tileE)h+=_LEG;_stpE.forEach(function(q){h+=renderQ(q);});h+=_tileE;var _ob='';_othO.forEach(function(q){_ob+=renderQ(q);});_stpO.forEach(function(q){_ob+=renderQ(q);});_ob+=_tileO;if(_ob){h+='<div class="a-optional"><button type="button" class="a-optional-h" data-optmore aria-expanded="false"><span class="a-optional-t">＋ Add more detail</span><span class="a-optional-tag">optional</span><span class="a-optional-chev">▾</span></button><div class="a-optional-body" hidden><p class="a-optional-hint">These are optional — answer only if you want to add more detail.</p>'+_ob+'</div></div>';}h+='<div class="a-nav">'+(i>0?'<button class="btn btn-outline" data-aback>Back</button>':'<span></span>')+'<span class="a-nav-r"><button class="btn btn-outline btn-sm" data-asave>Save</button><button class="btn btn-gold" data-anext>Next</button></span></div><p class="sub" id="aSaveMsg" style="margin-top:8px;text-align:right;"></p>';return h;}
@@ -3854,19 +3855,11 @@ var PATH_IND = [
     g:"I can read, write, and speak English well.",
     y:"I can read, write, and speak English well enough to get by, but I sometimes struggle.",
     r:"I can’t read, write, or speak English well."},
-  {id:"school", b:"education", opt:true, q:"School Enrollment", def:"School-age children enrolled and on track.",
+  {id:"school", b:"education", q:"School Enrollment", def:"School-age children enrolled and on track.",
     g:"All school-age members (5-18 years old) are enrolled in school and on track to graduate.",
     y:"At least one school-aged household member is enrolled in school but shows signs of academic or retention risk (for example, frequent absences, grade repetition, or low academic performance).",
     r:"At least one school-age household member is not attending school or has dropped out."},
-  {id:"recreation", b:"education", opt:true, q:"Recreation", def:"Time for hobbies, sport, and connection.",
-    g:"We do something recreational at least once a week.",
-    y:"We do, but less often than we'd like.",
-    r:"We rarely or never make time for recreation."},
-  {id:"job_ready", b:"education", opt:true, q:"Employment Readiness", def:"Being prepared to apply and interview.",
-    g:"I have a resume and feel prepared to interview for a job.",
-    y:"I have a resume but don't feel prepared to be interviewed for a job.",
-    r:"I don't have a resume and feel unprepared to be interviewed for a job."},
-  {id:"learn", b:"education", opt:true, q:"Continuous Learning", def:"Interest in growing your skills.",
+  {id:"learn", b:"education", q:"Continuous Learning", def:"Interest in growing your skills.",
     g:"I'm interested in improving my skills and have the time and money to do so. I'm actively working on it.",
     y:"I'm interested in improving my skills but lack the time and money to do it regularly.",
     r:"I am not improving my skills."},
@@ -3914,7 +3907,7 @@ var PATH_IND = [
     r:"We have no vehicle we can use."},
 
   // ---- Relationships ----
-  {id:"support_rel", b:"relationships", opt:true, q:"Healthy relationships", def:"People who push you toward your goals, not away.",
+  {id:"support_rel", b:"relationships", q:"Healthy relationships", def:"People who push you toward your goals, not away.",
     g:"The people around me encourage my goals and keep me accountable.",
     y:"I have some good influences, but others pull me the wrong way.",
     r:"The people around me lead me toward harm rather than my goals."},
@@ -3926,22 +3919,10 @@ var PATH_IND = [
     g:"We take part in a positive community group at least monthly.",
     y:"We take part, but less than once a month.",
     r:"We aren't part of any supportive group."},
-  {id:"giving_back", b:"relationships", opt:true, q:"Care for the community", def:"Contributing time or resources to those around you.",
+  {id:"giving_back", b:"relationships", q:"Care for the community", def:"Contributing time or resources to those around you.",
     g:"I contribute my time and resources to improve the well-being of people in my community at least once a month (such as food drives, cleanup events, helping a neighbor, etc.).",
     y:"I contribute my time and resources to improve the well-being of people in my community once every two or three months.",
     r:"I do not contribute my time and resources to improve the well-being of people in my community."},
-  {id:"civic", b:"relationships", opt:true, q:"Civic participation", def:"Engaging with public life and decisions.",
-    g:"We take part in civic life (voting, meetings, contacting officials) yearly or more.",
-    y:"We take part less than once a year.",
-    r:"We don't take part in civic activities."},
-  {id:"conflict", b:"relationships", opt:true, q:"Handling conflict", def:"Resolving disagreements without aggression.",
-    g:"I work through conflicts by talking, without shouting, insults, or threats.",
-    y:"I try to talk it out but often end up shouting or threatening.",
-    r:"Conflicts often turn into shouting, insults, threats, or violence."},
-  {id:"emotions", b:"relationships", opt:true, q:"Understanding emotions", def:"Awareness of your own and others' feelings.",
-    g:"I can name my own feelings and read other people's.",
-    y:"I know my own feelings but struggle to read others.",
-    r:"I often can't identify my feelings or others', and it causes problems."},
 ];
 
 var PATH_BUCKETS=[{key:"health",name:"Health & Wellness",icon:"🩺"},{key:"education",name:"Education",icon:"📚"},{key:"economic",name:"Income",icon:"📈"},{key:"housing",name:"Safe & Affordable Housing",icon:"🏠"},{key:"financial",name:"Financial Health",icon:"💳"},{key:"transport",name:"Transportation",icon:"🚌"},{key:"relationships",name:"Relationships",icon:"🤝"}];
