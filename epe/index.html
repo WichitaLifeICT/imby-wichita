@@ -3653,10 +3653,6 @@ var ESS7=[
 ]},
 {key:'health',name:'Health & Wellness',intro:'Your body and mind.',q:[
  {id:'he_care',t:'We have access to health services',type:'stoplight',req:true,opts:[{v:'g',t:'We have access to medical care and can afford to pay for prescriptions and treatments.'},{v:'y',t:'We have access to medical care but can’t afford prescriptions or treatment.'},{v:'r',t:'We have no access to medical care and cannot afford prescriptions or treatment.'}],score:{g:0,y:2,r:4,Yes:0,No:3}},
- {id:'he_dental',t:'Have you visited the dentist in the last year?',type:'yn',score:{Yes:0,No:2}},
- {id:'he_stress',t:'How often do stress or anxiety interfere with daily life?',type:'choice',opts:['Never','Sometimes','Often'],req:true,score:{Never:0,Sometimes:2,Often:4}},
- {id:'he_habits',t:'Which of these are true for you?',type:'multi',opts:['I exercise regularly','I have reliable access to healthy food','I usually get enough sleep']},
- {id:'he_concern',t:'Is there a health concern preventing you from reaching your goals?',type:'yn',score:{Yes:3,No:0}}
 ]},
 {key:'relationships',name:'Relationships',intro:'Support and connection.',q:[
  {id:'re_rely',t:'We have close relationships',type:'stoplight',req:true,opts:[{v:'g',t:'We have close relationships with family members, friends, or community members and reach out to them for help when needed.'},{v:'y',t:'We have relationships with family members, friends, or community members, but we are uncomfortable asking them for help.'},{v:'r',t:'We do not have any close relationships who can help us when needed.'}],score:{g:0,y:2,r:4,Yes:0,Sometimes:2,No:4}},
