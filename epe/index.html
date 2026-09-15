@@ -3819,14 +3819,14 @@ var PATH_IND = [
     g:"We know where to get mental health support and can afford it or get it free.",
     y:"We know where to go but couldn't afford it.",
     r:"We don't know where to turn and couldn't pay for it anyway."},
-  {id:"dental", b:"health", q:"Dental care", def:"Regular dental checkups and treatment.",
-    g:"We can afford the dentist and go for a checkup at least once a year.",
-    y:"We can afford the dentist but go less often than yearly.",
-    r:"We can't afford to see a dentist."},
-  {id:"vision", b:"health", q:"Vision", def:"Eye care and correction when needed.",
-    g:"We get eye checkups as needed and have the glasses we need (or don't need any).",
-    y:"We skip regular eye checkups even when we should go.",
-    r:"We have vision problems and no access to an eye care provider."},
+  {id:"dental", b:"health", q:"Healthy teeth", def:"Going to the dentist once a year and getting treatment if needed.",
+    g:"We can afford to go to the dentist and have regular checkups at least once a year.",
+    y:"We can afford to go to the dentist. But we do not have regular checkups (typically, it's longer than once a year).",
+    r:"We cannot afford to go to the dentist."},
+  {id:"vision", b:"health", q:"Good vision", def:"Regular vision check-ups and the correct eyeglasses when needed.",
+    g:"When needed we have regular vision check-ups, and we either do not need or have the correct eyeglasses.",
+    y:"When needed we do not have regular vision check-ups.",
+    r:"We have problems with our vision, and we don't have access to a vision provider."},
   {id:"diet", b:"health", q:"Healthy diet", def:"A balanced range of nutritious foods.",
     g:"We eat a healthy diet, including fruits and vegetables, whole grains, and proteins.",
     y:"Sometimes, we do not eat a healthy diet due to lack of access, time, money or poor habits",
@@ -3946,7 +3946,7 @@ function derivePathFrom(A){A=A||{};var out={};
   return out;}
 function derivePathSuggestions(){return derivePathFrom((typeof ANS!=='undefined'&&ANS)?ANS:{});}
 function applyPathPrefill(){var sug=derivePathSuggestions();var n=0;Object.keys(sug).forEach(function(id){if(PATH_AUTO[id])return;if(!PATH_NOW[id]&&!PATH_NA[id]){PATH_NOW[id]=sug[id];PATH_FROM[id]=true;n++;}});return n;}
-var PATH_AUTO={medical:1,dental:1,stable_housing:1,banking:1,savings:1,income:1,close_ties:1,community:1,trans_reliability:1,trans_vehicle:1};
+var PATH_AUTO={medical:1,stable_housing:1,banking:1,savings:1,income:1,close_ties:1,community:1,trans_reliability:1,trans_vehicle:1};
 function applyAutoFills(){var cur=derivePathFrom((typeof ANS!=='undefined')?ANS:{});var base=derivePathFrom((typeof ANS_BASE!=='undefined')?ANS_BASE:{});Object.keys(PATH_AUTO).forEach(function(id){if(cur[id]!==undefined)PATH_NOW[id]=cur[id];if(base[id]!==undefined)PATH_THEN[id]=base[id];});}
 function pathAnswers(){applyAutoFills();return {now:PATH_NOW,then:PATH_THEN,na:PATH_NA};}
 function pathPrefill(){var msg=document.getElementById('prefillMsg');var n=applyPathPrefill();renderPath();if(msg)msg.textContent=n?('Filled '+n+' answer'+(n>1?'s':'')+' from your check-in \u2014 review & adjust below, then Save.'):'Nothing new to pre-fill \u2014 finish your 7 Human Essentials check-in first, or those are already answered.';try{logEvent('action','Path pre-filled from check-in');}catch(e){}}
