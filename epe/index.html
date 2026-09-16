@@ -1066,6 +1066,7 @@ svg.ic{width:24px;height:24px;}
 .hub-tabs{display:flex;flex-wrap:wrap;gap:2px 4px;overflow-x:auto;border-bottom:1px solid var(--border);margin-top:16px;scrollbar-width:none;}
 .hub-tabs::-webkit-scrollbar{display:none;}
 .sum-wrap{margin-top:16px;}
+.focus-below{margin-top:14px;}
 .sum-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:0 1px 2px rgba(14,39,69,.04);}
 .sum-blank{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .sum-blank-ic{font-size:30px;flex:none;}
@@ -1515,6 +1516,15 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
 
     <div class="sum-wrap" id="summaryDash"></div>
 
+    <div class="focus-below" id="focusBelow" style="display:none;">
+      <div class="panel">
+        <span class="section-eyebrow">Recommended for your goals</span>
+        <h2>Your focus right now</h2>
+        <p class="sub">One step to take in each of your top priorities. Reorder them anytime in <b>Goals &amp; Priorities</b>.</p>
+        <div id="prioList"></div>
+      </div>
+    </div>
+
     <nav class="hub-tabs" id="hubTabs">
       <button type="button" class="hub-tab active" data-tp="baseline"><span class="n">1</span>Baseline Assessment</button>
       <button type="button" class="hub-tab" data-tp="current"><span class="n">2</span>Current Life Assessment</button>
@@ -1689,12 +1699,6 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
 
       <!-- 6. BANK OF SOLUTIONS (real) -->
       <div class="hub-panel" data-tp="bank">
-        <div class="panel">
-          <span class="section-eyebrow">Recommended for your goals</span>
-          <h2>Your focus right now</h2>
-          <p class="sub">One step to take in each of your top priorities. Reorder them anytime in <b>Goals &amp; Priorities</b>.</p>
-          <div id="prioList"></div>
-        </div>
         <div class="panel">
           <span class="section-eyebrow">Bank of Solutions</span>
           <h2>Solutions available to you</h2>
@@ -2066,7 +2070,7 @@ function renderDash(){
     var act=ESS_STEPS[k].map(function(step){return step.u?('<a class="step-link" href="'+step.u+'" target="_blank" rel="noopener" data-sollabel="'+aEsc(step.t)+'"><span class="lbl">'+step.t+'</span><span class="step-go">Start ↗</span></a>'):('<div class="step-note">'+step.t+'</div>');}).join('');
     var sol=(SOLUTION_LINKS[k])?'<a class="prio-sol" href="'+SOLUTION_LINKS[k]+'" target="_blank" rel="noopener" data-sollabel="'+aEsc((FNAMES[k]||'')+' — explore more')+'">Explore more solutions ↗</a>':'';
     return '<div class="prio"><h3><span class="prio-rank">'+(i+1)+'</span>'+FNAMES[k]+pill+'</h3><div class="actions-list">'+act+'</div>'+sol+'</div>';
-  }).join('') : '<p class="sub">Set your priorities in <b>Your goals</b> to see your focus steps.</p>';
+  }).join('') : '<p class="sub">Set your priorities in <b>Your goals</b> to see your focus steps.</p>';(function(){var _fb=document.getElementById('focusBelow');if(_fb)_fb.style.display=focus.length?'':'none';})();
   (function(){var gg=document.querySelector('#dashboard .dash-grid'); if(gg)gg.style.display='';})(); renderInfoReview(); renderEssentialsPanel(); renderPath(); renderSatWidget(); renderBaseline(); renderCurrent(); renderMilestones(); try{renderSummaryDash();}catch(_s){}
   (function(){
     var CAT2ESS={'Transportation':'Transportation','Financial':'Financial Health','Financial Tools':'Financial Health','Financial Health':'Financial Health','Financial Resources':'Financial Health','Housing':'Safe & Affordable Housing','Workforce':'Income','Employment':'Income','Economic Opportunity':'Income','Education':'Education','Health':'Health & Wellness','Health & Wellness':'Health & Wellness','Community':'Relationships','Relationships':'Relationships','People Development':'Other'};
@@ -4182,7 +4186,7 @@ function renderSummaryDash(){
   if(baseDone&&curDone){var cb=_sumCountsMap((typeof PATH_THEN!=='undefined')?PATH_THEN:{});if(!cb.t)cb=null;if(cb){var d=c.g-cb.g;if(d>0)note='<div class="sum-note up">▲ '+d+' more green than your baseline — nice progress.</div>';else if(d<0)note='<div class="sum-note dn">'+Math.abs(d)+' fewer green than baseline — let’s find some support.</div>';else note='<div class="sum-note">Holding steady since your baseline.</div>';}}
   else if(baseDone&&!curDone){note='<div class="sum-note">Take your current check-in to track progress since baseline. <button type="button" class="btn btn-outline btn-sm" data-sumtab="current" style="margin-left:6px;">Current Life Assessment</button></div>';}
   var when=useCur?(window._essLast||''):((typeof PATH_BASE_DATE!=='undefined'&&PATH_BASE_DATE)||'');
-  var head='<div class="sum-head"><div><span class="sum-eyebrow">'+(useCur?'Current life assessment':'Baseline assessment')+'</span><h3 class="sum-title">Your life snapshot</h3></div>'+(when?('<span class="sum-when">'+pEsc(when)+'</span>'):'')+'</div>';
+  var head='<div class="sum-head"><div><h3 class="sum-title">Your life snapshot</h3></div>'+(when?('<span class="sum-when">'+pEsc(when)+'</span>'):'')+'</div>';
   el.innerHTML='<div class="sum-card">'+head+'<div class="sum-grid"><div class="sum-donut-wrap">'+donut+'<div class="sum-total">'+c.t+' areas rated</div></div>'+legend+'<div class="sum-side">'+prHtml+achHtml+'</div></div>'+note+'</div>';
 }
 function renderMilestones(){renderEssProgress();try{renderRewards();}catch(_r){}try{renderSummaryDash();}catch(_s){}}
