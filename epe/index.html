@@ -1067,6 +1067,13 @@ svg.ic{width:24px;height:24px;}
 .hub-tabs::-webkit-scrollbar{display:none;}
 .sum-wrap{margin-top:16px;}
 .focus-below{margin-top:14px;}
+.focus-panel{padding-top:10px;padding-bottom:10px;}
+.focus-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:none;cursor:pointer;font-family:var(--sans);text-align:left;padding:4px 0;}
+.focus-toggle-tx{display:flex;flex-direction:column;gap:2px;}
+.focus-h2{font-family:var(--display);font-size:20px;color:var(--navy);font-weight:600;}
+.focus-chev{font-size:18px;color:var(--muted);transition:transform .18s;flex:none;}
+.focus-toggle[aria-expanded="true"] .focus-chev{transform:rotate(180deg);}
+.focus-body{margin-top:8px;}
 .sum-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:0 1px 2px rgba(14,39,69,.04);}
 .sum-blank{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .sum-blank-ic{font-size:30px;flex:none;}
@@ -1517,11 +1524,15 @@ ol.prio{list-style:none;margin:8px 0 0;padding:0;counter-reset:p;}
     <div class="sum-wrap" id="summaryDash"></div>
 
     <div class="focus-below" id="focusBelow" style="display:none;">
-      <div class="panel">
-        <span class="section-eyebrow">Recommended for your goals</span>
-        <h2>Your focus right now</h2>
-        <p class="sub">One step to take in each of your top priorities. Reorder them anytime in <b>Goals &amp; Priorities</b>.</p>
-        <div id="prioList"></div>
+      <div class="panel focus-panel">
+        <button type="button" class="focus-toggle" id="focusToggle" aria-expanded="false">
+          <span class="focus-toggle-tx"><span class="section-eyebrow">Recommended for your goals</span><span class="focus-h2">Your next steps</span></span>
+          <span class="focus-chev">▾</span>
+        </button>
+        <div class="focus-body" id="focusBody" hidden>
+          <p class="sub">One step to take in each of your top priorities. Reorder them anytime in <b>Goals &amp; Priorities</b>.</p>
+          <div id="prioList"></div>
+        </div>
       </div>
     </div>
 
@@ -4270,7 +4281,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
 
 <script>
 document.addEventListener('click',function(e){var _om=e.target.closest('[data-optmore]');if(_om){e.preventDefault();var wrap=_om.parentNode;var body=wrap.querySelector('.a-optional-body');if(body){var willOpen=body.hasAttribute('hidden');if(willOpen)body.removeAttribute('hidden');else body.setAttribute('hidden','');_om.setAttribute('aria-expanded',willOpen?'true':'false');wrap.classList.toggle('open',willOpen);}return;}});
-(function(){document.addEventListener('click',function(e){var o=e.target.closest('[data-slc]');if(o){var col=o.getAttribute('data-slc'),id=o.getAttribute('data-sli'),v=o.getAttribute('data-slv');var map=(col==='then')?PATH_THEN:PATH_NOW;map[id]=v;var opts=o.parentNode;var bs=opts.querySelectorAll('.path-o');for(var i=0;i<bs.length;i++)bs[i].classList.remove('on');o.classList.add('on');var _card=o.closest('.pi-card');if(_card){var _gsl=_card.querySelector('.gs-slot');if(_gsl)_gsl.innerHTML=gsHtml(id,v);}var body=o.closest('.path-body');if(body){var key=body.id.split('-').pop();var items=PATH_IND.filter(function(x){return x.b===key;});var an=items.filter(function(x){return map[x.id];}).length;var badge=document.querySelector('[data-slb="'+col+':'+key+'"] .path-count');if(badge)badge.textContent=an+'/'+items.length;if(col==='now'&&PATH_THEN[id]&&PATH_THEN[id]!==v){/*baseline hint stays*/}}return;}var bh=e.target.closest('[data-slb]');if(bh){var k=bh.getAttribute('data-slb');var bd=document.getElementById('slb-'+k.replace(':','-'));if(bd)bd.style.display=(bd.style.display==='none')?'':'none';bh.classList.toggle('open');return;}var jp=e.target.closest('[data-sljump]');if(jp){var kk=jp.getAttribute('data-sljump');var bd2=document.getElementById('slb-'+kk.replace(':','-'));if(bd2){bd2.style.display='';var hh=document.querySelector('[data-slb="'+kk+'"]');if(hh)hh.classList.add('open');bd2.scrollIntoView({block:'start'});}return;}var _st=e.target.closest('[data-sumtab]');if(_st){openHubTab(_st.getAttribute('data-sumtab'));try{window.scrollTo({top:0,behavior:'smooth'});}catch(_w){}return;}var _lt=e.target.closest('[data-lifetab]');if(_lt){setLifeTab(_lt.getAttribute('data-lifetab'));return;}if(e.target.closest('#baseRefine')){BASE_REFINE=true;renderBaseline();return;}if(e.target.closest('#baseCancel')){BASE_REFINE=false;loadPath();return;}if(e.target.closest('#baseInfoSave')){saveProfile();return;}if(e.target.closest('#baseSave')){saveBaselineCurrent('base');return;}if(e.target.closest('#curSave')){saveBaselineCurrent('cur');return;}if(e.target.closest('[data-gotobase]')){setLifeTab('baseline');return;}});})();
+(function(){document.addEventListener('click',function(e){var o=e.target.closest('[data-slc]');if(o){var col=o.getAttribute('data-slc'),id=o.getAttribute('data-sli'),v=o.getAttribute('data-slv');var map=(col==='then')?PATH_THEN:PATH_NOW;map[id]=v;var opts=o.parentNode;var bs=opts.querySelectorAll('.path-o');for(var i=0;i<bs.length;i++)bs[i].classList.remove('on');o.classList.add('on');var _card=o.closest('.pi-card');if(_card){var _gsl=_card.querySelector('.gs-slot');if(_gsl)_gsl.innerHTML=gsHtml(id,v);}var body=o.closest('.path-body');if(body){var key=body.id.split('-').pop();var items=PATH_IND.filter(function(x){return x.b===key;});var an=items.filter(function(x){return map[x.id];}).length;var badge=document.querySelector('[data-slb="'+col+':'+key+'"] .path-count');if(badge)badge.textContent=an+'/'+items.length;if(col==='now'&&PATH_THEN[id]&&PATH_THEN[id]!==v){/*baseline hint stays*/}}return;}var bh=e.target.closest('[data-slb]');if(bh){var k=bh.getAttribute('data-slb');var bd=document.getElementById('slb-'+k.replace(':','-'));if(bd)bd.style.display=(bd.style.display==='none')?'':'none';bh.classList.toggle('open');return;}var jp=e.target.closest('[data-sljump]');if(jp){var kk=jp.getAttribute('data-sljump');var bd2=document.getElementById('slb-'+kk.replace(':','-'));if(bd2){bd2.style.display='';var hh=document.querySelector('[data-slb="'+kk+'"]');if(hh)hh.classList.add('open');bd2.scrollIntoView({block:'start'});}return;}var _ft=e.target.closest('#focusToggle');if(_ft){var _fbd=document.getElementById('focusBody');var _exp=_ft.getAttribute('aria-expanded')==='true';_ft.setAttribute('aria-expanded',_exp?'false':'true');if(_fbd){if(_exp)_fbd.setAttribute('hidden','');else _fbd.removeAttribute('hidden');}return;}var _st=e.target.closest('[data-sumtab]');if(_st){openHubTab(_st.getAttribute('data-sumtab'));try{window.scrollTo({top:0,behavior:'smooth'});}catch(_w){}return;}var _lt=e.target.closest('[data-lifetab]');if(_lt){setLifeTab(_lt.getAttribute('data-lifetab'));return;}if(e.target.closest('#baseRefine')){BASE_REFINE=true;renderBaseline();return;}if(e.target.closest('#baseCancel')){BASE_REFINE=false;loadPath();return;}if(e.target.closest('#baseInfoSave')){saveProfile();return;}if(e.target.closest('#baseSave')){saveBaselineCurrent('base');return;}if(e.target.closest('#curSave')){saveBaselineCurrent('cur');return;}if(e.target.closest('[data-gotobase]')){setLifeTab('baseline');return;}});})();
 </script>
 
 <script>
